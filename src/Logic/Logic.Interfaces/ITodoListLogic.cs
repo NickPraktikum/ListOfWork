@@ -3,7 +3,7 @@
 namespace devdeer.ListOfWork.Logic.Interfaces
 {
     /// <summary>
-    /// Must be implemented by components that provide logic to handle the todo items.
+    /// Must be implemented by components that provide logic to handle the <see cref="TodoItemModel"/>s.
     /// </summary>
     public interface ITodoListLogic
     {
