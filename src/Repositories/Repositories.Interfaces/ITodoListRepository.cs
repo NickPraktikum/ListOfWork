@@ -15,7 +15,7 @@
         /// <summary>
         /// Retrieves all of the <see cref="TodoItemModel"/>s from the backend.
         /// </summary>
-        /// <returns>An array of <see cref="TodoItemModel"/>s or <c>null</c> if no items were found in the backend.</returns>
+        /// <returns>An list of <see cref="TodoItemModel"/>s or <c>null</c> if no items were found in the backend.</returns>
         Task<IEnumerable<TodoItemModel>?> GetAllTodos();
         /// <summary>
         /// Retrieves a single <see cref="TodoItemModel"/> from the backend.

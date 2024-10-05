@@ -38,8 +38,8 @@
         /// <summary>
         /// Retrieves all of the todo items from the backend.
         /// </summary>
-        /// <returns>An array of todo items found in the backend.</returns>
-        /// <response code="200">Returns an array of todo item.</response>
+        /// <returns>An list of todo items found in the backend.</returns>
+        /// <response code="200">Returns an list of todo item.</response>
         /// <response code="404">If no todo items were found.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItemModel>?>> GetAllTodos() { 
@@ -62,8 +62,8 @@
         /// <summary>
         /// Retrieves all of the deleted todo items from the backend.
         /// </summary>
-        /// <returns>An array of deleted todo items found in the backend.</returns>
-        /// <response code="200">Returns an array of deleted todo item.</response>
+        /// <returns>An list of deleted todo items found in the backend.</returns>
+        /// <response code="200">Returns an list of deleted todo item.</response>
         /// <response code="404">If no deleted todo items were found.</response>
         [HttpGet("Deleted")]
         public async Task<ActionResult<IEnumerable<TodoItemModel>?>> GetAllDeletedTodos()

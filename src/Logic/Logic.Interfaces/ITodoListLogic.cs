@@ -15,12 +15,12 @@
         /// <summary>
         /// Retrieves all of the <see cref="TodoItemModel"/>s from the backend. 
         /// </summary>
-        /// <returns>An array of <see cref="TodoItemModel"/>s present in the backend or <c>null</c> if no available <see cref="TodoItemModel"/>s were found in the backend.</returns>
+        /// <returns>An list of <see cref="TodoItemModel"/>s present in the backend or <c>null</c> if no available <see cref="TodoItemModel"/>s were found in the backend.</returns>
         Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync();
         /// <summary>
         /// Retrieves all of the deleted <see cref="TodoItemModel"/>s from the backend.
         /// </summary>
-        /// <returns>An array of deleted <see cref="TodoItemModel"/>s from the backend or <c>null</c> if no deleted <see cref="TodoItemModel"/>s were found.</returns>
+        /// <returns>An list of deleted <see cref="TodoItemModel"/>s from the backend or <c>null</c> if no deleted <see cref="TodoItemModel"/>s were found.</returns>
         Task<IEnumerable<TodoItemModel>?> GetAllDeletedTodosAsync();
         /// <summary>
         /// Retrieves a single <see cref="TodoItemModel"/> with the provided <paramref name="id"/> from the backend.
