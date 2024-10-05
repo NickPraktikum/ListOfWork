@@ -1,7 +1,6 @@
-﻿using devdeer.ListOfWork.Logic.Models;
-
-namespace devdeer.ListOfWork.Logic.Interfaces
+﻿namespace devdeer.ListOfWork.Logic.Interfaces
 {
+    using devdeer.ListOfWork.Logic.Models;
     /// <summary>
     /// Must be implemented by components that provide logic to handle the <see cref="TodoItemModel"/>s.
     /// </summary>
