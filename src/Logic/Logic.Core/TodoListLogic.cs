@@ -9,7 +9,7 @@
     public class TodoListLogic : ITodoListLogic
     {
         /// <inheritdoc />
-        public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel todoItem)
+        public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
             throw new NotImplementedException();
         }

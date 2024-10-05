@@ -26,13 +26,13 @@
         /// <summary>
         /// Creates a new todo item in the backend.
         /// </summary>
-        /// <param name="item">The data required for the todo item creation.</param>
+        /// <param name="createTodo">The data required for the todo item creation.</param>
         /// <returns>The create todo item in the backend.</returns>
         /// <response code="200">Returns the created todo item.</response>
         [HttpPost]
-        public async Task<ActionResult<TodoItemModel>> CreateTodoAsync(CreateTodoItemModel item)
+        public async Task<ActionResult<TodoItemModel>> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
-            var result = await Logic.CreateTodoAsync(item);
+            var result = await Logic.CreateTodoAsync(createTodo);
             return Ok(result);
         }
         /// <summary>
@@ -84,7 +84,7 @@
             return Ok(result);
         }
         /// <summary>
-        /// Sets the todo item to completed state.
+        /// Sets a single todo item to completed state.
         /// </summary>
         /// <param name="id">The id of the todo item in the backend.</param>
         /// <returns>A todo item with the provided <paramref name="id"/> and state set to completed.</returns>
@@ -97,7 +97,7 @@
             return result != null ? Ok(result) : NotFound();
         }
         /// <summary>
-        /// Updates the data inside of the todo item.
+        /// Updates the data inside of a single todo item.
         /// </summary>
         /// <param name="id">The id of the todo item in the backend.</param>
         /// <param name="updateTodo">The data that is supposed to be updated in the todo item with the provided <paramref name="id"/>.</param>

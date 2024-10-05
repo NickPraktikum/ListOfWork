@@ -9,9 +9,9 @@
         /// <summary>
         /// Creates a new <see cref="TodoItemModel"/> in the backend.
         /// </summary>
-        /// <param name="todoItem">The data needed for the <see cref="TodoItemModel"/> creation.</param>
+        /// <param name="createTodo">The data needed for the <see cref="TodoItemModel"/> creation.</param>
         /// <returns>The created <see cref="TodoItemModel"/> with the provided data(<see cref="CreateTodoItemModel"/>).</returns>
-        Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel todoItem);
+        Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo);
         /// <summary>
         /// Retrieves all of the <see cref="TodoItemModel"/>s from the backend. 
         /// </summary>
@@ -35,13 +35,13 @@
         /// <returns><c>true</c> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was deleted from the backend or <c>false</c> if the <see cref="TodoItemModel"/> with the <paramref name="id"/> couldn't be deleted.</returns>
         Task<bool> DeleteTodoAsync(string id);
         /// <summary>
-        /// Sets the <see cref="TodoItemModel"/> complition state to done.
+        /// Sets a single <see cref="TodoItemModel"/> complition state to done.
         /// </summary>
         /// <param name="id">The id of the <see cref="TodoItemModel"/> whose completion state is supposed to be set to done.</param>
         /// <returns>A <see cref="TodoItemModel"/>, whose <see cref="TodoItemModel.CompletedAt"/> is set to <see cref="DateTimeOffset.Now"/> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was found and <c>null</c> if the <see cref="TodoItemModel"/> with the <paramref name="id"/> wasn't found.</returns>
         Task<TodoItemModel?> SetTodoToCompleteAsync(string id);
         /// <summary>
-        /// Updates the data inside of a <see cref="TodoItemModel"/>. 
+        /// Updates the data inside of a single <see cref="TodoItemModel"/>. 
         /// </summary>
         /// <param name="id">The id of the <see cref="TodoItemModel"/> whose data is supposed to be updated.</param>
         /// <param name="updateTodoItem">The data that is supposed to be updated in the <see cref="TodoItemModel"/>.</param>
