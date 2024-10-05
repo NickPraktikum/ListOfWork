@@ -9,37 +9,37 @@
     public class TodoListLogic : ITodoListLogic
     {
         /// <inheritdoc />
-        public TodoItemModel CreateTodo(CreateTodoItemModel todoItem)
+        public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel todoItem)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public bool DeleteTodo(string id)
+        public Task<bool> DeleteTodoAsync(string id)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public IEnumerable<TodoItemModel>? GetAllDeletedTodos()
+        public Task<IEnumerable<TodoItemModel>?> GetAllDeletedTodosAsync()
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public IEnumerable<TodoItemModel>? GetAllTodos()
+        public Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public TodoItemModel? GetTodoById(string id)
+        public Task<TodoItemModel?> GetTodoByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public TodoItemModel? SetTodoToComplete(string id)
+        public Task<TodoItemModel?> SetTodoToCompleteAsync(string id)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc />
-        public TodoItemModel? UpdateTodo(string id, UpdateTodoItemModel updateTodoItem)
+        public Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodoItem)
         {
             throw new NotImplementedException();
         }

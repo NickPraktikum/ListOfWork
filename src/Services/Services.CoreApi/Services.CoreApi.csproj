@@ -6,10 +6,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.Core\Logic.Core.csproj" />
+    <ProjectReference Include="..\..\Logic\Logic.Interfaces\Logic.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
