@@ -2,46 +2,56 @@
 {
     using devdeer.ListOfWork.Logic.Interfaces;
     using devdeer.ListOfWork.Logic.Models;
+    using devdeer.ListOfWork.Repositories.Interfaces;
     using System.Collections.Generic;
     /// <summary>
     /// Default logic for handling the <see cref="TodoItemModel"/>s.
     /// </summary>
     public class TodoListLogic : ITodoListLogic
     {
-        /// <inheritdoc />
-        public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
-        {
-            throw new NotImplementedException();
+        /// <summary>
+        /// A default contstructor for the logic.
+        /// </summary>
+        /// <param name="repository">The repository that is supposed to be injected into the logic.</param>
+        public TodoListLogic(ITodoListRepository repository) {
+            Repository = repository;
         }
         /// <inheritdoc />
-        public Task<bool> DeleteTodoAsync(string id)
+        public async Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
-            throw new NotImplementedException();
+            return await Repository.CreateTodoAsync(createTodo);
         }
         /// <inheritdoc />
-        public Task<IEnumerable<TodoItemModel>?> GetAllDeletedTodosAsync()
+        public async Task<bool> DeleteTodoAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Repository.DeleteTodoAsync(id);
         }
         /// <inheritdoc />
-        public Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
+        public async Task<IEnumerable<TodoItemModel>?> GetAllDeletedTodosAsync()
         {
-            throw new NotImplementedException();
+            var result = await Repository.GetAllTodosAsync();
+            return result!.Where(todo => todo.IsDeleted);
         }
         /// <inheritdoc />
-        public Task<TodoItemModel?> GetTodoByIdAsync(string id)
+        public async Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
         {
-            throw new NotImplementedException();
+            return await Repository.GetAllTodosAsync();
         }
         /// <inheritdoc />
-        public Task<TodoItemModel?> SetTodoToCompleteAsync(string id)
+        public async Task<TodoItemModel?> GetTodoByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Repository.GetByIdAsync(id);
         }
         /// <inheritdoc />
-        public Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodoItem)
+        public async Task<TodoItemModel?> SetTodoToCompleteAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Repository.UpdateTodoAsync(id, new UpdateTodoItemModel());
         }
+        /// <inheritdoc />
+        public async Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodoItem)
+        {
+            return await Repository.UpdateTodoAsync(id, updateTodoItem);
+        }
+        private ITodoListRepository Repository { get; }
     }
 }

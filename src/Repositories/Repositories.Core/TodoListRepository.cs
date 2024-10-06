@@ -5,38 +5,39 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// A repository to handle todos.
+    /// </summary>
     public class TodoListRepository : ITodoListRepository
     {
-        public TodoListRepository(TodoItemModel[] todoItems)
-        {
-            _todoItems = todoItems;
-        }
-
         /// <inheritdoc/>
-        public Task<TodoItemModel> CreateTodo(CreateTodoItemModel createTodo)
+        public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc/>
-        public Task<bool> DeleteTodo(string id)
+        public Task<bool> DeleteTodoAsync(string id)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc/>
-        public Task<IEnumerable<TodoItemModel>?> GetAllTodos()
+        public Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc/>
-        public Task<TodoItemModel?> GetById(string id)
+        public Task<TodoItemModel?> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
         /// <inheritdoc/>
-        public Task<TodoItemModel?> UpdateTodo(string id, UpdateTodoItemModel updateTodo)
+        public Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodo)
         {
             throw new NotImplementedException();
         }
-        private TodoItemModel[] _todoItems { get; }
+        /// <summary>
+        /// An in-memory storage for todos.
+        /// </summary>
+        private static List<TodoItemModel> _todoItems { get; } = new List<TodoItemModel> {};
     }
 }
