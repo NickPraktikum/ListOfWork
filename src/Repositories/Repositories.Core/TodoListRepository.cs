@@ -21,7 +21,7 @@
             throw new NotImplementedException();
         }
         /// <inheritdoc/>
-        public Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
+        public Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
             throw new NotImplementedException();
         }

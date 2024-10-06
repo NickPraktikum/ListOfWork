@@ -27,13 +27,13 @@
             return await Repository.DeleteTodoAsync(id);
         }
         /// <inheritdoc />
-        public async Task<IEnumerable<TodoItemModel>?> GetAllDeletedTodosAsync()
+        public async Task<IEnumerable<TodoItemModel>> GetAllDeletedTodosAsync()
         {
             var result = await Repository.GetAllTodosAsync();
             return result!.Where(todo => todo.IsDeleted);
         }
         /// <inheritdoc />
-        public async Task<IEnumerable<TodoItemModel>?> GetAllTodosAsync()
+        public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
             return await Repository.GetAllTodosAsync();
         }
@@ -52,6 +52,9 @@
         {
             return await Repository.UpdateTodoAsync(id, updateTodoItem);
         }
+        /// <summary>
+        /// The repository for handling todo in the backend.
+        /// </summary>
         private ITodoListRepository Repository { get; }
     }
 }

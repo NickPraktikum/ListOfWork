@@ -42,7 +42,7 @@
         /// <response code="200">Returns an list of todo item.</response>
         /// <response code="404">If no todo items were found.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItemModel>?>> GetAllTodos() { 
+        public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetAllTodos() { 
             var result = await Logic.GetAllTodosAsync();
             return result != null ? Ok(result) : NotFound();
         }
@@ -66,7 +66,7 @@
         /// <response code="200">Returns an list of deleted todo item.</response>
         /// <response code="404">If no deleted todo items were found.</response>
         [HttpGet("Deleted")]
-        public async Task<ActionResult<IEnumerable<TodoItemModel>?>> GetAllDeletedTodos()
+        public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetAllDeletedTodos()
         {
             var result = await Logic.GetAllDeletedTodosAsync();
             return result != null ? Ok(result) : NotFound();
