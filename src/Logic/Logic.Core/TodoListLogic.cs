@@ -45,12 +45,12 @@
         /// <inheritdoc />
         public async Task<TodoItemModel?> SetTodoToCompleteAsync(string id)
         {
-            return await Repository.UpdateTodoAsync(id, new UpdateTodoItemModel());
+            return await Repository.UpdateTodoAsync(new UpdateTodoItemModel());
         }
         /// <inheritdoc />
-        public async Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodoItem)
+        public async Task<TodoItemModel?> UpdateTodoAsync(UpdateTodoItemModel updateTodoItem)
         {
-            return await Repository.UpdateTodoAsync(id, updateTodoItem);
+            return await Repository.UpdateTodoAsync(updateTodoItem);
         }
         /// <summary>
         /// The repository for handling todo in the backend.

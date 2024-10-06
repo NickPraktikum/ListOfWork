@@ -6,6 +6,10 @@
     public class UpdateTodoItemModel
     {
         /// <summary>
+        ///  The unique identifier of the <see cref="TodoItemModel"/> in the backend.
+        /// </summary>
+        public string Id { get; set; } = default!;
+        /// <summary>
         /// The title of the updated <see cref="TodoItemModel"/>.
         /// </summary>
         public string Title { get; set; } = default!;

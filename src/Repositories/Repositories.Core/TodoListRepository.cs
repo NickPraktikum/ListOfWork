@@ -13,31 +13,54 @@
         /// <inheritdoc/>
         public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
-            throw new NotImplementedException();
+            var todo = new TodoItemModel
+            {
+                Title = createTodo.Title,
+                Description = createTodo.Description,
+                DueTime = createTodo.DueTime,
+            };
+            _todoItems.Add(todo);
+            return Task.FromResult(todo);
         }
         /// <inheritdoc/>
-        public Task<bool> DeleteTodoAsync(string id)
+        public async Task<bool> DeleteTodoAsync(string id)
         {
-            throw new NotImplementedException();
+            var todoToDelete = await GetByIdAsync(id);
+            if (todoToDelete == null )
+            {
+                return false;
+            }
+            _todoItems.Remove(todoToDelete);
+            return true;
         }
         /// <inheritdoc/>
-        public Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
+        public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(_todoItems);
         }
         /// <inheritdoc/>
-        public Task<TodoItemModel?> GetByIdAsync(string id)
+        public async Task<TodoItemModel?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(_todoItems.SingleOrDefault(todo => todo.Id == id));
         }
         /// <inheritdoc/>
-        public Task<TodoItemModel?> UpdateTodoAsync(string id, UpdateTodoItemModel updateTodo)
+        public async Task<TodoItemModel?> UpdateTodoAsync(UpdateTodoItemModel updateTodo)
         {
-            throw new NotImplementedException();
+            var bookToUpdate = await GetByIdAsync(updateTodo.Id);
+            if (bookToUpdate == null)
+            {
+                return null;
+            }
+            _todoItems.Remove(bookToUpdate);
+            bookToUpdate.Title = updateTodo.Title;
+            bookToUpdate.Description = updateTodo.Description;
+            bookToUpdate.DueTime = updateTodo.DueTime;
+            _todoItems.Add(bookToUpdate);
+            return bookToUpdate;
         }
         /// <summary>
         /// An in-memory storage for todos.
         /// </summary>
-        private static List<TodoItemModel> _todoItems { get; } = new List<TodoItemModel> {};
+        private static List<TodoItemModel> _todoItems { get; } = new();
     }
 }
