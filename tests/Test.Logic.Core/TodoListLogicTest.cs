@@ -1,5 +1,6 @@
 ﻿namespace devdeer.ListOfWork.Tests.Logic.Core
 {
+    using devdeer.ListOfWork.Logic.Common.Exceptions;
     using devdeer.ListOfWork.Logic.Core;
     using devdeer.ListOfWork.Logic.Interfaces;
     using devdeer.ListOfWork.Logic.Models;
@@ -132,6 +133,57 @@
                     Assert.That(result.DueTime, Is.EqualTo(dueTimeDate));
                 });
         }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.DeleteTodoAsync"/> requires a valid id.
+        /// </summary>
+        [Test]
+        public void DeleteTodoRequiresValidId()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(string.Empty));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync( null!));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 1)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 2)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 10)));
+                Assert.DoesNotThrowAsync(() => logic.DeleteTodoAsync(validId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.DeleteTodoAsync"/> requires an existing <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void DeletedTodoRequiresExistingTodo()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.DeleteTodoAsync("1111"));
+                Assert.DoesNotThrowAsync(() => logic.DeleteTodoAsync(validId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.DeleteTodoAsync"/> returns <c>true</c> after successful <see cref="TodoItemModel"/> deletion.
+        /// </summary>
+        [Test]
+        public async Task DeleteTodoReturnsTrueIfDeletedSuccessfully()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act
+            var result = await logic.DeleteTodoAsync(validId);
+            // Assert
+            Assert.That(result, Is.EqualTo(true));
+        }
+
         private ITodoListRepository GetRepository()
         {
             return TodoListTestRepository.Create(_testTodoItems!);
