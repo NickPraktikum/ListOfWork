@@ -119,7 +119,7 @@
         /// Tests if <see cref="TodoListLogic.CreateTodoAsync"/> assigns right values to the properties in <see cref="TodoItemModel"/>.
         /// </summary>
         [Test]
-        public async Task CreateTodoAssignRightValues()
+        public async Task CreateTodoAssignProperValues()
         {
             // Arrange
             var logic = LogicToTest;
@@ -152,11 +152,12 @@
             // Act & Assert
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(string.Empty));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync( null!));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 1)));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 2)));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 10)));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(string.Empty));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(null!));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 1)));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 2)));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync(new string(' ', 10)));
+            Assert.ThrowsAsync<ArgumentException>(() => logic.DeleteTodoAsync("longer than 4"));
                 Assert.DoesNotThrowAsync(() => logic.DeleteTodoAsync(validId));
             });
         }
@@ -195,7 +196,7 @@
         /// Tests if <see cref="TodoListLogic.GetAllTodosAsync"/> returns proper values with <see cref="_testTodoItems"/> provided
         /// </summary>
         [Test]
-        public async Task GetAllTodosReturnsRightValues()
+        public async Task GetAllTodosReturnsProperValues()
         {
             // Assert
             var logic = LogicToTest;
@@ -207,6 +208,45 @@
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.Any(), Is.True);
                 Assert.That(result.Length, Is.EqualTo(2));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.GetTodoByIdAsync"/> requires a valid id.
+        /// </summary>
+        [Test]
+        public void GetTodoByIdRequiresValidId()
+        {
+            // Arrange 
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync(string.Empty));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync(null!));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync(new string(' ', 1)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync(new string(' ', 2)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync(new string(' ', 10)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.GetTodoByIdAsync("longer than 4"));
+                Assert.DoesNotThrowAsync(() => logic.GetTodoByIdAsync(validId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.GetTodoByIdAsync"/> returns a <see cref="TodoItemModel"/> if it's found in the backend or <c>null</c> otherwise.
+        /// </summary>
+        [Test]
+        public async Task GetTodoByIdReturnsNullIfTodoItemNotFound()
+        {
+            // Assert
+            var logic = LogicToTest;
+            var wrongId = "1111";
+            var rightId = _testTodoItems!.First().Id;
+            // Act 
+            var wrongResult = await logic.GetTodoByIdAsync(wrongId);
+            var rightResult = await logic.GetTodoByIdAsync(rightId);
+            Assert.Multiple(() => {
+                Assert.That(wrongResult, Is.Null);
+                Assert.That(rightResult, Is.Not.Null);
             });
         }
         private ITodoListRepository GetRepository()
