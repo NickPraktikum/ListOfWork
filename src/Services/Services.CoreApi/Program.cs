@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using devdeer.ListOfWork.Repositories.Interfaces;
 using devdeer.ListOfWork.Repositories.Core;
+using devdeer.ListOfWork.Services.CoreApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -26,6 +27,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddTransient<ITodoListLogic, TodoListLogic>();
 builder.Services.AddScoped<ITodoListRepository, TodoListRepository>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -34,5 +36,6 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 app.Run();
