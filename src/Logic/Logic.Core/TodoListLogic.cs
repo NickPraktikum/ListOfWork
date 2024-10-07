@@ -30,7 +30,7 @@
             }
             if (createTodo.DueTime <= DateTimeOffset.Now)
             {
-                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
+                throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
             }
             return await Repository.CreateTodoAsync(createTodo);
         }
@@ -90,7 +90,10 @@
             }
             if (updateTodoItem.DueTime <= DateTimeOffset.Now)
             {
-                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment.", nameof(updateTodoItem.DueTime));
+                throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(updateTodoItem.DueTime));
+            }
+            if (updateTodoItem.CompletedAt <= updateTodoItem.CreatedAt) {
+                throw new ArgumentException($"Value can't have a date that is earlier or eqauls the time of creation({nameof(updateTodoItem.CreatedAt)}).", nameof(updateTodoItem.CompletedAt));
             }
             return await Repository.UpdateTodoAsync(id, updateTodoItem);
         }

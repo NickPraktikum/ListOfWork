@@ -22,7 +22,7 @@
         /// <summary>
         /// The time of the item creation. The time is automatically set to now to display the time of the request.
         /// </summary>
-        public DateTimeOffset CreatedTime { get; } = DateTimeOffset.Now;
+        public DateTimeOffset CreatedAt { get; } = DateTimeOffset.Now;
         /// <summary>
         /// The time when the todo item is supposed to be fulfilled.
         /// </summary>
