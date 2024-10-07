@@ -20,7 +20,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
         /// Tests if <see cref="TodoItemModel.Id"/> isn't set to null after the <see cref="TodoItemModel"/> creation.
         /// </summary>
         [Test]
-        public void TodoListItem_Has_Not_Nullable_Id()
+        public void TodoListItemHasNotNullableId()
         {
             // Act & Assert
             Assert.That(_todoListItemToTest.Id, Is.Not.Null);
@@ -29,7 +29,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
         /// Tests if <see cref="TodoItemModel.Id"/> has a length of 4 after the <see cref="TodoItemModel"/> creation.
         /// </summary>
         [Test]
-        public void TodoListItemsIdLength_Equals_4()
+        public void TodoListItemsIdLengthEquals4()
         {
             // Act & Assert
             Assert.That(_todoListItemToTest.Id, Has.Length.EqualTo(4));
@@ -38,7 +38,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
         /// Tests if <see cref="TodoItemModel.Id"/> is unique after <see cref="TodoItemModel"/> creation.
         /// </summary>
         [Test]
-        public void TodoListItem_Has_Unique_Id()
+        public void TodoListItemHasUniqueId()
         {
             // Arrange
             var newTodoListItem = new TodoItemModel();
@@ -46,10 +46,10 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             Assert.That(newTodoListItem.Id, Is.Not.EqualTo(_todoListItemToTest.Id));
         }
         /// <summary>
-        /// Tests if the properties of <see cref="TodoItemModel"/> can be set properly.
+        /// Tests if the <see cref=TodoItemModel.Title""/>, <see cref="TodoItemModel.Description"/>, <see cref="TodoItemModel.DueTime"/> and <see cref="TodoItemModel.CompletedAt"/>  of <see cref="TodoItemModel"/> can be set properly.
         /// </summary>
         [Test]
-        public void TodoListItem_Properties_Are_Set_Right()
+        public void TodoListItemPropertiesAreSetRight()
         {
             // Arrange
             var title = "New Title";
@@ -74,7 +74,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
         /// Test if <see cref="TodoItemModel.CreatedAt"/> is automatically set to time at the moment of creation.
         /// </summary>
         [Test]
-        public void TodoListItem_CreationTime_Is_Now()
+        public void TodoListItemCreationTimeIsNow()
         {
             // Arrange
             var dateNow = DateTimeOffset.Now;
@@ -82,14 +82,31 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             Assert.That(_todoListItemToTest.CreatedAt, Is.EqualTo(dateNow).Within(TimeSpan.FromSeconds(1)));
         }
         /// <summary>
-        /// Test if <see cref="TodoItemModel.CompletedAt"/> is set to <c>null</c> after <see cref="TodoItemModel"/> creation.
+        /// Test if <see cref="TodoItemModel"/> properties <see cref="TodoItemModel.Title"/>, <see cref="TodoItemModel.Description"/> and <see cref="TodoItemModel.CompletedAt"/> are set to null after <see cref="TodoItemModel"/> creation.
         /// </summary>
         [Test]
-        public void TodoListItem_CompletedAt_Is_Null_After_Creation()
+        public void TodoListItemPropertiesAreSetToNullAfterCreation()
         {
-            // Act & Assert
-            Assert.That(_todoListItemToTest.CompletedAt, Is.Null);
+            // Assert & Act
+            Assert.Multiple(() =>
+            {
+                Assert.That(_todoListItemToTest.Title, Is.Null);
+                Assert.That(_todoListItemToTest.Description, Is.Null);
+                Assert.That(_todoListItemToTest.CompletedAt, Is.Null);
+            });
         }
+        /// <summary>
+        /// Tests if <see cref="TodoItemModel.DueTime"/> is automatically set to <see cref="DateTimeOffset"/> after <see cref="TodoItemModel"/> creation.
+        /// </summary>
+        [Test]
+        public void TodoListItemDueAtIsSetToNewDatetimeOffsetAfterCreation()
+        {
+            // Assert & Act
+            Assert.That(_todoListItemToTest.DueTime, Is.EqualTo(new DateTimeOffset()));
+        }
+        /// <summary>
+        /// A simple model placeholder for providing test operations on <see cref="TodoItemModel"/>
+        /// </summary>
         private TodoItemModel _todoListItemToTest;
     }
 }
