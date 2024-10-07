@@ -27,7 +27,7 @@
         /// Creates a new todo item in the backend.
         /// </summary>
         /// <param name="createTodo">The data required for the todo item creation.</param>
-        /// <returns>The create todo item in the backend.</returns>
+        /// <returns>The created todo item with the provided creation data in the backend.</returns>
         /// <response code="200">Returns the created todo item.</response>
         [HttpPost]
         public async Task<ActionResult<TodoItemModel>> CreateTodoAsync(CreateTodoItemModel createTodo)
@@ -87,14 +87,15 @@
         /// <summary>
         /// Updates the data inside of a single todo item.
         /// </summary>
-        /// <param name="updateTodo">The data that is supposed to be updated in the <see cref="TodoItemModel"/>.</param>
-        /// <returns>The <see cref="TodoItemModel"/> with provided and the updated data from <paramref name="updateTodo"/>.</returns>
-        /// <response code="200">A <see cref="TodoItemModel"/> if its data was updated with <paramref name="updateTodo"/>.</response>
-        /// <response code="404">If the todo item with the provided <see cref="TodoItemModel"/> wasn't found.</response>
-        [HttpPut()]
-        public async Task<ActionResult<TodoItemModel?>> UpdateTodo(TodoItemModel updateTodo)
+        /// <param name="id">The id of the todo item in the backend</param>
+        /// <param name="updateTodo">The data that is supposed to be updated in the todo item.</param>
+        /// <returns>The todo item with provided and the updated data from provided update data.</returns>
+        /// <response code="200">A todo item if its data was updated with provided update data.</response>
+        /// <response code="404">If the todo item with the provided todo item wasn't found.</response>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TodoItemModel?>> UpdateTodo(string id, TodoItemModel updateTodo)
         {
-            var result = await Logic.UpdateTodoAsync(updateTodo);
+            var result = await Logic.UpdateTodoAsync(id, updateTodo);
             return result != null ? Ok(result) : NotFound();
         }
     }

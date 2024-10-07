@@ -30,7 +30,7 @@
             }
             if (createTodo.DueTime <= DateTimeOffset.Now)
             {
-                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment", nameof(createTodo.DueTime));
+                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
             }
             return await Repository.CreateTodoAsync(createTodo);
         }
@@ -65,12 +65,17 @@
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
             var todo = await GetTodoByIdAsync(id) ?? throw new EntityNotFoundException(id);
+            if (todo.CompletedAt != null)
+            {
+                throw new InvalidOperationException("The todo is already set to completed.");
+            }
             todo.CompletedAt = DateTimeOffset.UtcNow;
-            return await Repository.UpdateTodoAsync(todo);
+            return await Repository.UpdateTodoAsync(id, todo);
         }
         /// <inheritdoc />
-        public async Task<TodoItemModel?> UpdateTodoAsync(TodoItemModel updateTodoItem)
+        public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodoItem)
         {
+            var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             if (string.IsNullOrEmpty(updateTodoItem.Id) || string.IsNullOrWhiteSpace(updateTodoItem.Id))
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Id));
@@ -85,9 +90,9 @@
             }
             if (updateTodoItem.DueTime <= DateTimeOffset.Now)
             {
-                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment", nameof(updateTodoItem.DueTime));
+                throw new ArgumentException("Value can't have a value that is earlier or equals the time at the moment.", nameof(updateTodoItem.DueTime));
             }
-            return await Repository.UpdateTodoAsync(updateTodoItem);
+            return await Repository.UpdateTodoAsync(id, updateTodoItem);
         }
         /// <summary>
         /// The repository for handling todo in the backend.

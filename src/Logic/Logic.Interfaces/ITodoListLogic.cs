@@ -38,8 +38,9 @@
         /// <summary>
         /// Updates the data inside of a single <see cref="TodoItemModel"/>. 
         /// </summary>
+        /// <param name="id">The id of the <see cref="TodoItemModel"/> in the backend.</param>
         /// <param name="updateTodoItem">The data that is supposed to be updated in the <see cref="TodoItemModel"/>.</param>
         /// <returns>A <see cref="TodoItemModel"/> whose data was updated to <paramref name="updateTodoItem"/> or <c>null</c> if the <see cref="TodoItemModel"/> wasn't found in the backend.</returns>
-        Task<TodoItemModel?> UpdateTodoAsync(TodoItemModel updateTodoItem);
+        Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodoItem);
     }
 }

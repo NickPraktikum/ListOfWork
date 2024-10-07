@@ -44,20 +44,20 @@
             return await Task.FromResult(_todoItems.SingleOrDefault(todo => todo.Id == id));
         }
         /// <inheritdoc/>
-        public async Task<TodoItemModel?> UpdateTodoAsync(TodoItemModel updateTodo)
+        public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodo)
         {
-            var bookToUpdate = await GetByIdAsync(updateTodo.Id);
-            if (bookToUpdate == null)
+            var todoToUpdate = await GetByIdAsync(id);
+            if (todoToUpdate == null)
             {
                 return null;
             }
-            _todoItems.Remove(bookToUpdate);
-            bookToUpdate.Title = updateTodo.Title;
-            bookToUpdate.Description = updateTodo.Description;
-            bookToUpdate.DueTime = updateTodo.DueTime;
-            bookToUpdate.CompletedAt = updateTodo.CompletedAt;
-            _todoItems.Add(bookToUpdate);
-            return bookToUpdate;
+            _todoItems.Remove(todoToUpdate);
+            todoToUpdate.Title = updateTodo.Title;
+            todoToUpdate.Description = updateTodo.Description;
+            todoToUpdate.DueTime = updateTodo.DueTime;
+            todoToUpdate.CompletedAt = updateTodo.CompletedAt;
+            _todoItems.Add(todoToUpdate);
+            return todoToUpdate;
         }
         /// <summary>
         /// An in-memory storage for todos.
