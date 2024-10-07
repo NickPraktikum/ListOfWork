@@ -44,7 +44,7 @@
             return await Task.FromResult(_todoItems.SingleOrDefault(todo => todo.Id == id));
         }
         /// <inheritdoc/>
-        public async Task<TodoItemModel?> UpdateTodoAsync(UpdateTodoItemModel updateTodo)
+        public async Task<TodoItemModel?> UpdateTodoAsync(TodoItemModel updateTodo)
         {
             var bookToUpdate = await GetByIdAsync(updateTodo.Id);
             if (bookToUpdate == null)
@@ -55,6 +55,7 @@
             bookToUpdate.Title = updateTodo.Title;
             bookToUpdate.Description = updateTodo.Description;
             bookToUpdate.DueTime = updateTodo.DueTime;
+            bookToUpdate.CompletedAt = updateTodo.CompletedAt;
             _todoItems.Add(bookToUpdate);
             return bookToUpdate;
         }

@@ -60,18 +60,6 @@
             return result != null ? Ok(result) : NotFound();
         }
         /// <summary>
-        /// Retrieves all of the deleted todo items from the backend.
-        /// </summary>
-        /// <returns>An list of deleted todo items found in the backend.</returns>
-        /// <response code="200">Returns an list of deleted todo item.</response>
-        /// <response code="404">If no deleted todo items were found.</response>
-        [HttpGet("Deleted")]
-        public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetAllDeletedTodos()
-        {
-            var result = await Logic.GetAllDeletedTodosAsync();
-            return result != null ? Ok(result) : NotFound();
-        }
-        /// <summary>
         /// Deletes a single todo item with the provided <paramref name="id"/> from the backend.
         /// </summary>
         /// <param name="id">The id of the todo item in backend.</param>
@@ -104,7 +92,7 @@
         /// <response code="200">A <see cref="TodoItemModel"/> if its data was updated with <paramref name="updateTodo"/>.</response>
         /// <response code="404">If the todo item with the provided <see cref="TodoItemModel"/> wasn't found.</response>
         [HttpPut()]
-        public async Task<ActionResult<TodoItemModel?>> UpdateTodo(UpdateTodoItemModel updateTodo)
+        public async Task<ActionResult<TodoItemModel?>> UpdateTodo(TodoItemModel updateTodo)
         {
             var result = await Logic.UpdateTodoAsync(updateTodo);
             return result != null ? Ok(result) : NotFound();

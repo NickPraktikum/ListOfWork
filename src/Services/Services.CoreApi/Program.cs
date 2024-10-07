@@ -4,8 +4,6 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using devdeer.ListOfWork.Repositories.Interfaces;
 using devdeer.ListOfWork.Repositories.Core;
-using devdeer.ListOfWork.Logic.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

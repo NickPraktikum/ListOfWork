@@ -34,6 +34,6 @@
         /// </summary>
         /// <param name="updateTodo">The data to be updated in the <see cref="TodoItemModel"/></param>
         /// <returns>A <see cref="TodoItemModel"/> and updated data from <paramref name="updateTodo"/> or <c>null</c> if the <see cref="TodoItemModel"/> wasn't found in the backend.</returns>
-        Task<TodoItemModel?> UpdateTodoAsync(UpdateTodoItemModel updateTodo);
+        Task<TodoItemModel?> UpdateTodoAsync(TodoItemModel updateTodo);
     }
 }

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Repositories\Repositories.Interfaces\Repositories.Interfaces.csproj" />
+    <ProjectReference Include="..\Logic.Common\Logic.Common.csproj" />
     <ProjectReference Include="..\Logic.Interfaces\Logic.Interfaces.csproj" />
   </ItemGroup>
 

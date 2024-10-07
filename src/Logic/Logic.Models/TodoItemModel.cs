@@ -31,9 +31,5 @@
         /// The time of the todo item completion. The property indicates if the todo item is fulfilled and at what time.
         /// </summary>
         public DateTimeOffset? CompletedAt { get; set; }
-        /// <summary>
-        /// The indicator of the todo item presence in the backend. If the property is set to false, then the todo was deleted.
-        /// </summary>
-        public bool IsDeleted { get; set; } = false;
     }
 }
