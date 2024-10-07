@@ -41,6 +41,7 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
+            var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             return await Repository.DeleteTodoAsync(id);
         }
         /// <inheritdoc />
@@ -76,9 +77,9 @@
         public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodoItem)
         {
             var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
-            if (string.IsNullOrEmpty(updateTodoItem.Id) || string.IsNullOrWhiteSpace(updateTodoItem.Id))
+            if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Id));
+                throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
             if (string.IsNullOrEmpty(updateTodoItem.Title) || string.IsNullOrWhiteSpace(updateTodoItem.Title))
             {

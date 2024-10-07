@@ -44,7 +44,7 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetAllTodos() { 
             var result = await Logic.GetAllTodosAsync();
-            return result != null ? Ok(result) : NotFound();
+            return result.Any() ? Ok(result) : NotFound();
         }
         /// <summary>
         /// Retrieves a single todo item with the provided <paramref name="id"/> from backend.

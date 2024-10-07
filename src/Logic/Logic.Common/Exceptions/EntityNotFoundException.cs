@@ -1,7 +1,7 @@
 ﻿namespace devdeer.ListOfWork.Logic.Common.Exceptions
 {
     /// <summary>
-    /// An exception that is thrown if while executing an operation an entity couldn't found.
+    /// An exception that is thrown if while executing an operation an entity couldn't be found.
     /// </summary>
     public class EntityNotFoundException : Exception
     {
