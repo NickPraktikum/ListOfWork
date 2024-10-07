@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Logic\Logic.Core\Logic.Core.csproj" />
+    <ProjectReference Include="..\..\src\Logic\Logic.Interfaces\Logic.Interfaces.csproj" />
     <ProjectReference Include="..\..\src\Logic\Logic.Models\Logic.Models.csproj" />
     <ProjectReference Include="..\..\src\Repositories\Repositories.Interfaces\Repositories.Interfaces.csproj" />
   </ItemGroup>

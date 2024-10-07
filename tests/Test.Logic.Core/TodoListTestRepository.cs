@@ -63,7 +63,7 @@
             return todoToUpdate;
         }
 
-        public static TodoListTestRepository Create(IEnumerable<TodoItemModel> database)
+        public static ITodoListRepository Create(IEnumerable<TodoItemModel> database)
         {
             var result = new TodoListTestRepository();
             result.Database.AddRange(database);
