@@ -5,6 +5,8 @@
     using devdeer.ListOfWork.Logic.Interfaces;
     using devdeer.ListOfWork.Logic.Models;
     using devdeer.ListOfWork.Repositories.Interfaces;
+    using System.Data;
+
     public class TodoListLogicTest
     {
         private IEnumerable<TodoItemModel>? _testTodoItems;
@@ -119,7 +121,7 @@
         /// Tests if <see cref="TodoListLogic.CreateTodoAsync"/> assigns right values to the properties in <see cref="TodoItemModel"/>.
         /// </summary>
         [Test]
-        public async Task CreateTodoAssignProperValues()
+        public async Task CreateTodoAssignsProperValues()
         {
             // Arrange
             var logic = LogicToTest;
@@ -248,6 +250,100 @@
                 Assert.That(wrongResult, Is.Null);
                 Assert.That(rightResult, Is.Not.Null);
             });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> requires a valid id.
+        /// </summary>
+        [Test]
+        public void SetTodoToCompleteRequiresValidId()
+        {
+            // Arrange 
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync(string.Empty));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync(null!));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync(new string(' ', 1)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync(new string(' ', 2)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync(new string(' ', 10)));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.SetTodoToCompleteAsync("longer than 4"));
+                Assert.DoesNotThrowAsync(() => logic.SetTodoToCompleteAsync(validId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> can't set completed <see cref="TodoItemModel"/> to completed.
+        /// </summary>
+        [Test]
+        public void SetTodoToCompleteRequiresUnCompletedTodoItem()
+        {
+            // Assert
+            var logic = LogicToTest;
+            var completedTodoId = _testTodoItems!.Where(todo => todo.CompletedAt != null).First().Id;
+            var uncompletedTodoId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            // Act & Assert
+            Assert.Multiple(() => {
+                Assert.ThrowsAsync<InvalidOperationException>(() => logic.SetTodoToCompleteAsync(completedTodoId));
+                Assert.DoesNotThrowAsync(() => logic.SetTodoToCompleteAsync(uncompletedTodoId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> requires an existing <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void SetTodoToCompleteRequiresExistingTodo()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.SetTodoToCompleteAsync("1111"));
+                Assert.DoesNotThrowAsync(() => logic.SetTodoToCompleteAsync(validId));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> assigns right values to the properties in <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public async Task SetTodoToCompleteAssignsProperValues()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var dateNow = DateTimeOffset.Now;
+            var validTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First();
+            // Act
+            var result = await logic.SetTodoToCompleteAsync(validTodo.Id);
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(result, Is.Not.Null);
+                    Assert.That(result!.Title, Is.EqualTo(validTodo.Title));
+                    Assert.That(result!.Description, Is.EqualTo(validTodo.Description));
+                    Assert.That(result!.DueTime, Is.EqualTo(validTodo.DueTime));
+                });
+        }
+        /// <summary>
+        ///  Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> assigns current <see cref="DateTimeOffset.Now"/> to the <see cref="TodoItemModel.CreatedAt"/> property of <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public async Task SetTodoToCompleteAssignsProperCompleteDate()
+        {
+            var logic = LogicToTest;
+            var dateNow = DateTimeOffset.Now;
+            var validTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First();
+            // Act
+            var result = await logic.SetTodoToCompleteAsync(validTodo.Id);
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(result!.CompletedAt, Is.Not.Null);
+                    Assert.That(result!.CompletedAt, Is.EqualTo(dateNow).Within(TimeSpan.FromSeconds(1)));
+                });
         }
         private ITodoListRepository GetRepository()
         {
