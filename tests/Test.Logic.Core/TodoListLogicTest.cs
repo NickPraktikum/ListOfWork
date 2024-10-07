@@ -18,6 +18,13 @@
                     Title = "Test",
                     Description = "Test",
                     DueTime = DateTime.Now,
+                    CompletedAt = null,
+                },
+                new()
+                {
+                    Title = "Test",
+                    Description = "Test",
+                    DueTime = DateTime.Now,
                     CompletedAt = DateTime.Now,
                 }
             ];
@@ -184,6 +191,24 @@
             Assert.That(result, Is.EqualTo(true));
         }
 
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.GetAllTodosAsync"/> returns proper values with <see cref="_testTodoItems"/> provided
+        /// </summary>
+        [Test]
+        public async Task GetAllTodosReturnsRightValues()
+        {
+            // Assert
+            var logic = LogicToTest;
+            // Act
+            var result = (await logic.GetAllTodosAsync()).ToArray();
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Any(), Is.True);
+                Assert.That(result.Length, Is.EqualTo(2));
+            });
+        }
         private ITodoListRepository GetRepository()
         {
             return TodoListTestRepository.Create(_testTodoItems!);
