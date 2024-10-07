@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Logic\Logic.Models\Logic.Models.csproj" />
+    <ProjectReference Include="..\..\src\Repositories\Repositories.Interfaces\Repositories.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
