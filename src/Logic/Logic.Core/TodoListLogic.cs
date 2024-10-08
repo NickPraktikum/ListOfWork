@@ -28,7 +28,8 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(createTodo.Description));
             }
-            if (createTodo.DueTime <= DateTimeOffset.UtcNow)
+            var dateTimeNow = DateTimeOffset.UtcNow;
+            if (createTodo.DueTime <= dateTimeNow)
             {
                 throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
             }
@@ -78,16 +79,16 @@
                 throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
             var todo = await GetTodoByIdAsync(id) ?? throw new EntityNotFoundException(id);
+            var dateTimeNow = DateTimeOffset.Now;
+            if (todo.DueTime < dateTimeNow)
+            {
+                throw new InvalidOperationException("Expired todo can't be set to completed");
+            }
             if (todo.CompletedAt != null)
             {
                 throw new InvalidOperationException("The todo is already set to completed.");
             }
-            var dateNow = DateTime.UtcNow;
-            if(todo.DueTime < dateNow)
-            {
-                throw new InvalidOperationException("Expired todo can't be set to completed");
-            }
-            todo.CompletedAt = DateTimeOffset.UtcNow;   
+            todo.CompletedAt = dateTimeNow;
             return await Repository.UpdateTodoAsync(id, todo);
         }
         /// <inheritdoc />

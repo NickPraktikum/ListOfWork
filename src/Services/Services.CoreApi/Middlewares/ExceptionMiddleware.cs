@@ -45,6 +45,20 @@
                     var errorResponse = JsonSerializer.Serialize(problemDetails);
                     await context.Response.WriteAsync(errorResponse);
                 }
+                if (ex is InvalidOperationException)
+                {
+                    var problemDetails = new ProblemDetails
+                    {
+                        Type = "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+                        Title = "Bad Request",
+                        Status = StatusCodes.Status400BadRequest,
+                        Detail = ex.Message,
+                    };
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    context.Response.ContentType = "application/json";
+                    var errorResponse = JsonSerializer.Serialize(problemDetails);
+                    await context.Response.WriteAsync(errorResponse);
+                }
             }
         }
     }
