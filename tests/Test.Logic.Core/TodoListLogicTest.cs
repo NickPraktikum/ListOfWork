@@ -5,11 +5,21 @@
     using devdeer.ListOfWork.Logic.Interfaces;
     using devdeer.ListOfWork.Logic.Models;
     using devdeer.ListOfWork.Repositories.Interfaces;
+    using System;
     using System.Data;
 
+    /// <summary>
+    /// Provides unit tests for the type <see cref="TodoListLogic" />.
+    /// </summary>
     public class TodoListLogicTest
     {
+        /// <summary>
+        /// A simple model placeholder for providing unit test operations on <see cref="TodoListLogic"/>
+        /// </summary>
         private IEnumerable<TodoItemModel>? _testTodoItems;
+        /// <summary>
+        /// This method runs before any unit test is running. Creates new <see cref="TodoItemModel"/> for tests.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -345,10 +355,333 @@
                     Assert.That(result!.CompletedAt, Is.EqualTo(dateNow).Within(TimeSpan.FromSeconds(1)));
                 });
         }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> requires a valid id for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidId()
+        {
+            // Arrange 
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            var updateTodo = new TodoItemModel
+            {
+                Title = "Update Test",
+                Description = "Update Test",
+                DueTime = DateTime.Now.AddDays(5),
+                CompletedAt = null,
+            };
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(string.Empty, updateTodo));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(null!, updateTodo));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(new string(' ', 1), updateTodo));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(new string(' ', 2), updateTodo));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(new string(' ', 10), updateTodo));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync("longer than 4", updateTodo));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, updateTodo));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> requires a valid title for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidTitle()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+               Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel {
+                   Title = "Update Test",
+                   Description = string.Empty,
+                   DueTime = DateTime.Now.AddDays(5),
+                   CompletedAt = null,
+               }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update Test",
+                    Description = null!,
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update Test",
+                    Description = new string(' ', 1),
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update Test",
+                    Description = new string(' ', 2),
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update Test",
+                    Description = new string(' ', 10),
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update Test",
+                    Description = "Valid Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic"/> requires a valid description for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidDescription()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = string.Empty,
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = null!,
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = new string(' ', 1),
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = new string(' ', 2),
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = new string(' ', 10),
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> requires a valid due time for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidDueTime()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "UpdateTest",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now,
+                    CompletedAt = null,
+                }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Update",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(-5),
+                    CompletedAt = null,
+                }));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = null,
+                }));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic"/> requires an existing <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresExistingTodo()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            var updateTodo = new TodoItemModel
+            {
+                Title = "Update Test",
+                Description = "Update Test",
+                DueTime = DateTime.Now.AddDays(5),
+                CompletedAt = null,
+            };
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", updateTodo));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, updateTodo));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> requires a valid completed at date time for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidCompletedAt()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = DateTime.Now,
+                }));
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = DateTime.Now.AddDays(-5),
+                }));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = DateTime.Now.AddDays(5),
+                    CompletedAt = DateTime.Now.AddDays(5),
+                }));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> requires a valid complete at date time and due time for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public void UpdateTodoRequiresValidCompletedAtAndDueTime()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            var dateNow = DateTime.Now;
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = dateNow.AddDays(5),
+                    CompletedAt = dateNow.AddDays(5),
+                }));
+                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = dateNow.AddDays(5),
+                    CompletedAt = dateNow.AddDays(-5),
+                }));
+                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
+                {
+                    Title = "Valid Update Test",
+                    Description = "Update Test",
+                    DueTime = dateNow.AddDays(5),
+                    CompletedAt = dateNow.AddDays(6),
+                }));
+            });
+        }
+        /// <summary>
+        /// Tests if <see cref="TodoListLogic.UpdateTodoAsync"/> assigns proper values for <see cref="TodoItemModel"/>.
+        /// </summary>
+        [Test]
+        public async Task UpdateTodoAssignsProperValues()
+        {
+            // Arrange
+            var logic = LogicToTest;
+            var dateNow = DateTimeOffset.Now;
+            var validUncompletedTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
+            var validCompletedTodo = _testTodoItems!.Where(todo => todo.CompletedAt != null).First().Id;
+            var dateTime = DateTime.Now;
+            var updateUncompletedTodo = new TodoItemModel
+            {
+                Title = "Update Test",
+                Description = "Update Test",
+                DueTime = dateNow.AddDays(5),
+                CompletedAt = null
+            };
+            var updateCompletedTodo = new TodoItemModel
+            {
+                Title = "Update Test",
+                Description = "Update Test",
+                DueTime = dateNow.AddDays(5),
+                CompletedAt = dateNow.AddDays(6)
+            };
+            // Act
+            var resultUncompletedTodo = await logic.UpdateTodoAsync
+                (validUncompletedTodo, updateUncompletedTodo);
+            var resultCompletedTodo = await logic.UpdateTodoAsync
+                (validCompletedTodo, updateCompletedTodo);
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(resultUncompletedTodo, Is.Not.Null);
+                    Assert.That(resultUncompletedTodo!.Title, Is.EqualTo(updateUncompletedTodo.Title));
+                    Assert.That(resultUncompletedTodo!.Description, Is.EqualTo(updateUncompletedTodo.Description));
+                    Assert.That(resultUncompletedTodo!.DueTime, Is.EqualTo(updateUncompletedTodo.DueTime));
+                    Assert.That(resultUncompletedTodo!.CompletedAt, Is.EqualTo(null));
+
+                    Assert.That(resultCompletedTodo, Is.Not.Null);
+                    Assert.That(resultCompletedTodo!.Title, Is.EqualTo(updateCompletedTodo.Title));
+                    Assert.That(resultCompletedTodo!.Description, Is.EqualTo(updateCompletedTodo.Description));
+                    Assert.That(resultCompletedTodo!.DueTime, Is.EqualTo(updateCompletedTodo.DueTime));
+                    Assert.That(resultCompletedTodo!.CompletedAt, Is.EqualTo(dateNow.AddDays(6)));
+                });
+        }
+        /// <summary>
+        /// Retrieves a fresh unit test todo list repository.
+        /// </summary>
+        /// <returns>The instance to use.</returns>
         private ITodoListRepository GetRepository()
         {
             return TodoListTestRepository.Create(_testTodoItems!);
         }
+        /// <summary>
+        /// Can be used internally to retrieve a fresh ready-to-use and configured instance of the logic to test.
+        /// </summary>
         private ITodoListLogic LogicToTest => new TodoListLogic(GetRepository());
 
     }

@@ -105,7 +105,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             Assert.That(_todoListItemToTest.DueTime, Is.EqualTo(new DateTimeOffset()));
         }
         /// <summary>
-        /// A simple model placeholder for providing test operations on <see cref="TodoItemModel"/>
+        /// A simple model placeholder for providing unit test operations on <see cref="TodoItemModel"/>
         /// </summary>
         private TodoItemModel _todoListItemToTest;
     }

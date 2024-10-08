@@ -41,9 +41,9 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
-            if (id.Length > 4)
+            if (id.Length != 4)
             {
-                throw new ArgumentException("Value can't have more that 4 characters.", nameof(id));
+                throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
             var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             return await Repository.DeleteTodoAsync(id);
@@ -60,8 +60,9 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
-            if (id.Length > 4) {
-                throw new ArgumentException("Value can't have more that 4 characters.", nameof(id));
+            if (id.Length != 4)
+            {
+                throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
             return await Repository.GetByIdAsync(id);
         }
@@ -72,9 +73,9 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
-            if (id.Length > 4)
+            if (id.Length != 4)
             {
-                throw new ArgumentException("Value can't have more that 4 characters.", nameof(id));
+                throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
             var todo = await GetTodoByIdAsync(id) ?? throw new EntityNotFoundException(id);
             if (todo.CompletedAt != null)
@@ -91,9 +92,9 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(id));
             }
-            if (id.Length > 4)
+            if (id.Length != 4)
             {
-                throw new ArgumentException("Value can't have more that 4 characters.", nameof(id));
+                throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
             var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             if (string.IsNullOrEmpty(updateTodoItem.Title) || string.IsNullOrWhiteSpace(updateTodoItem.Title))
@@ -110,10 +111,10 @@
             }
             if (updateTodoItem.CompletedAt <= updateTodoItem.DueTime)
             {
-                throw new ArgumentException($"Value can't have a date that is earlier or eqauls the time of when the item is due({nameof(updateTodoItem.DueTime)}).", nameof(updateTodoItem.CompletedAt));
+                throw new ArgumentException($"Value can't have a date that is earlier or equals the time of when the item is due({nameof(updateTodoItem.DueTime)}).", nameof(updateTodoItem.CompletedAt));
             }
             if (updateTodoItem.CompletedAt <= updateTodoItem.CreatedAt) {
-                throw new ArgumentException($"Value can't have a date that is earlier or eqauls the time of creation({nameof(updateTodoItem.CreatedAt)}).", nameof(updateTodoItem.CompletedAt));
+                throw new ArgumentException($"Value can't have a date that is earlier or equals the time of creation({nameof(updateTodoItem.CreatedAt)}).", nameof(updateTodoItem.CompletedAt));
             }
             return await Repository.UpdateTodoAsync(id, updateTodoItem);
         }
