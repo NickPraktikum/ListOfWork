@@ -20,6 +20,14 @@
   font-style: normal;
 }
 
+.scroll-behavior {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-behavior::-webkit-scrollbar {
+  display: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

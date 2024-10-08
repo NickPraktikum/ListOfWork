@@ -3,22 +3,21 @@ import { FunctionComponent, useState } from "react";
 import LikeIcon from "./svgs/LikeIcon";
 import DeleteIcon from "./svgs/DeleteIcon";
 import LikedIcon from "./svgs/LikedIcon";
-import { TodoItemProps } from "./interfaces/ITodoItem";
+import { ITodoItem } from "../interfaces/ITodoItem";
 
-const TodoItem: FunctionComponent<TodoItemProps> = ({
+const TodoItem: FunctionComponent<ITodoItem> = ({
   title,
   description,
-  creationTime,
+  createdAt,
   dueTime,
-  onDelete,
+  completedAt,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const toggleLike = () => {
     setIsLiked(!isLiked);
   };
   return (
-    <div className="group flex flex-col p-6 mb-4 bg-[#FFAD60] rounded-xl shadow-lg transition-transform duration-[900ms] oxygen-mono-regular">
-      {/* Todo Header */}
+    <div className="w-[977px] h-auto group flex flex-col p-6 mb-4 bg-[#FFAD60] rounded-xl shadow-lg transition-transform duration-[900ms] oxygen-mono-regular">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-xl font-bold text-gray-800">Title: {title}</h3>
         <div className="flex space-x-4">
@@ -31,7 +30,6 @@ const TodoItem: FunctionComponent<TodoItemProps> = ({
           </button>
 
           <button
-            onClick={onDelete}
             aria-label="Delete"
             className="text-red-500 hover:text-red-700"
           >
@@ -47,14 +45,27 @@ const TodoItem: FunctionComponent<TodoItemProps> = ({
       </div>
       <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-[900ms] ease-in-out">
         <p className="mt-2 text-sm text-gray-700 leading-relaxed">
-          Creation date: {creationTime.toDateString()}
+          Creation date: {new Date(createdAt).toLocaleString()}
         </p>
       </div>
       <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-[900ms] ease-in-out">
         <p className="mt-2 text-sm text-gray-700 leading-relaxed">
-          Due date: {dueTime.toDateString()}
+          Due date: {new Date(dueTime).toLocaleString()}
         </p>
       </div>
+      {completedAt == null ? (
+        <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-[900ms] ease-in-out">
+          <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+            Hasn&apos;t been completed yet.
+          </p>
+        </div>
+      ) : (
+        <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-[900ms] ease-in-out">
+          <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+            Completed at: {new Date(completedAt).toLocaleString()}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

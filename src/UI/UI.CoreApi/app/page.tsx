@@ -1,18 +1,13 @@
 "use client";
-import TodoItem from "./components/TodoItem";
+import TodoItems from "./components/TodoItems";
+import { GetAllTodos } from "./functions/GetAllTodos";
+import { ITodoItem } from "./interfaces/ITodoItem";
 
-export default async function Home() {
+export default function Home() {
+  const { data, error } = GetAllTodos();
   return (
     <>
-      <TodoItem
-        title={"fdfs"}
-        description={"dadsa"}
-        onDelete={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-        creationTime={new Date()}
-        dueTime={new Date()}
-      />
+      <TodoItems data={data as ITodoItem[]} />
     </>
   );
 }

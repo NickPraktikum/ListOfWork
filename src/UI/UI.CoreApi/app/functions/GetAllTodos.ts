@@ -1,0 +1,32 @@
+import { useQuery } from "@tanstack/react-query";
+import { ITodoItem } from "../interfaces/ITodoItem";
+
+export function GetAllTodos() {
+  return useQuery<ITodoItem[], Error>({
+    queryKey: ["all-available-books"],
+    queryFn: async () => {
+      return await fetch("https://localhost:7071/api/v1/TodoList", {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(async (res) => {
+          if (res.ok) {
+            return await res.json();
+          } else if (res.status == 404) {
+            throw Error("No books were found!");
+          } else {
+            throw Error("Couldn't retrieve books");
+          }
+        })
+        .catch((err) => {
+          throw Error(`${err}`);
+        });
+    },
+    refetchInterval: 3000,
+    retry: 3,
+    retryDelay: 5000,
+  });
+}

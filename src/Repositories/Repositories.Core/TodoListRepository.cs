@@ -40,7 +40,7 @@
         /// <inheritdoc />
         public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
-            return await Task.FromResult(_todoItems);
+            return await Task.FromResult(_todoItems.OrderBy(todo => todo.CreatedAt));
         }
 
         /// <inheritdoc />
