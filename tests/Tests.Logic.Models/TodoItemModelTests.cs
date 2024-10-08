@@ -8,14 +8,8 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
     [TestFixture]
     public class TodoItemModelTests
     {
-        /// <summary>
-        /// This method runs before any unit test is running.
-        /// </summary>
-        [SetUp]
-        public void Setup()
-        {
-            _todoListItemToTest = new TodoItemModel();
-        }
+        #region methods
+        
         /// <summary>
         /// Tests if <see cref="TodoItemModel.Id"/> isn't set to null after the <see cref="TodoItemModel"/> creation.
         /// </summary>
@@ -25,6 +19,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             // Act & Assert
             Assert.That(_todoListItemToTest.Id, Is.Not.Null);
         }
+        
         /// <summary>
         /// Tests if <see cref="TodoItemModel.Id"/> has a length of 4 after the <see cref="TodoItemModel"/> creation.
         /// </summary>
@@ -34,6 +29,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             // Act & Assert
             Assert.That(_todoListItemToTest.Id, Has.Length.EqualTo(4));
         }
+        
         /// <summary>
         /// Tests if <see cref="TodoItemModel.Id"/> is unique after <see cref="TodoItemModel"/> creation.
         /// </summary>
@@ -45,6 +41,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             // Assert &
             Assert.That(newTodoListItem.Id, Is.Not.EqualTo(_todoListItemToTest.Id));
         }
+        
         /// <summary>
         /// Tests if the <see cref=TodoItemModel.Title""/>, <see cref="TodoItemModel.Description"/>, <see cref="TodoItemModel.DueTime"/> and <see cref="TodoItemModel.CompletedAt"/>  of <see cref="TodoItemModel"/> can be set properly.
         /// </summary>
@@ -70,6 +67,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
                 Assert.That(_todoListItemToTest.CompletedAt, Is.EqualTo(completedAt));
             });
         }
+        
         /// <summary>
         /// Test if <see cref="TodoItemModel.CreatedAt"/> is automatically set to time at the moment of creation.
         /// </summary>
@@ -81,6 +79,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             // Act & Assert
             Assert.That(_todoListItemToTest.CreatedAt, Is.EqualTo(dateNow).Within(TimeSpan.FromSeconds(1)));
         }
+        
         /// <summary>
         /// Test if <see cref="TodoItemModel"/> properties <see cref="TodoItemModel.Title"/>, <see cref="TodoItemModel.Description"/> and <see cref="TodoItemModel.CompletedAt"/> are set to null after <see cref="TodoItemModel"/> creation.
         /// </summary>
@@ -95,6 +94,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
                 Assert.That(_todoListItemToTest.CompletedAt, Is.Null);
             });
         }
+        
         /// <summary>
         /// Tests if <see cref="TodoItemModel.DueTime"/> is automatically set to <see cref="DateTimeOffset"/> after <see cref="TodoItemModel"/> creation.
         /// </summary>
@@ -104,9 +104,25 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
             // Assert & Act
             Assert.That(_todoListItemToTest.DueTime, Is.EqualTo(new DateTimeOffset()));
         }
+
+        /// <summary>
+        /// This method runs before any unit test is running.
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+            _todoListItemToTest = new TodoItemModel();
+        }
+
+        #endregion
+
+        #region properties
+
         /// <summary>
         /// A simple model placeholder for providing unit test operations on <see cref="TodoItemModel"/>
         /// </summary>
         private TodoItemModel _todoListItemToTest;
+        
+        #endregion
     }
 }

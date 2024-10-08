@@ -11,6 +11,7 @@
     /// <summary>
     /// Provides unit tests for the type <see cref="TodoListLogic" />.
     /// </summary>
+    [TestFixture]
     public class TodoListLogicTest
     {
         #region member vars

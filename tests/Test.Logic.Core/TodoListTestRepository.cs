@@ -7,12 +7,19 @@
     /// </summary>
     public class TodoListTestRepository : ITodoListRepository
     {
+        #region constructors and destructors
+
         /// <summary>
         /// This is a private default constructor to prevent the creation of instances without the <see cref="Create" /> method.
         /// </summary>
         private TodoListTestRepository()
         {
-        }
+        } 
+
+        #endregion
+
+        #region explicit interfaces
+
         ///<inheritdoc/> 
         public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
@@ -63,15 +70,26 @@
             return todoToUpdate;
         }
 
+        #endregion
+
+        #region methods
+
         public static ITodoListRepository Create(IEnumerable<TodoItemModel> database)
         {
             var result = new TodoListTestRepository();
             result.Database.AddRange(database);
             return result;
         }
+
+        #endregion
+
+        #region properties
+
         /// <summary>
         /// The in-memory <see cref="TodoItemModel"/> database.
         /// </summary>
         private List<TodoItemModel> Database { get; } = new();
+
+        #endregion
     }
 }

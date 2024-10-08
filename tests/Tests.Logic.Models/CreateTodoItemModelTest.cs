@@ -4,16 +4,11 @@
     /// <summary>
     /// Provides unit tests for the model <see cref="CreateTodoItemModel" />.
     /// </summary>
+    [TestFixture]
     public class CreateTodoItemModelTest
     {
-        /// <summary>
-        /// This method runs before any unit test is running.
-        /// </summary>
-        [SetUp]
-        public void Setup()
-        {
-            _todoListItemToTest = new CreateTodoItemModel();
-        }
+        #region methods
+
         /// <summary>
         /// Tests if the <see cref="CreateTodoItemModel.Title"/>, <see cref="CreateTodoItemModel.Description"/> and <see cref="CreateTodoItemModel.DueTime"/> properties of <see cref="CreateTodoItemModel"/> can be set properly.
         /// </summary>
@@ -36,6 +31,7 @@
                 Assert.That(_todoListItemToTest.DueTime, Is.EqualTo(dueTime));
             });
         }
+
         /// <summary>
         /// Test if <see cref="CreateTodoItemModel"/> properties <see cref="CreateTodoItemModel.Title"/> and <see cref="CreateTodoItemModel.Description"/> are set to null after <see cref="CreateTodoItemModel"/> creation.
         /// </summary>
@@ -49,6 +45,7 @@
                 Assert.That(_todoListItemToTest.Description, Is.Null);
             });
         }
+
         /// <summary>
         /// Tests if <see cref="CreateTodoItemModel.DueTime"/> is automatically set to <see cref="DateTimeOffset"/> after <see cref="CreateTodoItemModel"/> creation.
         /// </summary>
@@ -58,9 +55,25 @@
             // Assert & Act
             Assert.That(_todoListItemToTest.DueTime, Is.EqualTo(new DateTimeOffset()));
         }
+
+        /// <summary>
+        /// This method runs before any unit test is running.
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+            _todoListItemToTest = new CreateTodoItemModel();
+        }
+
+        #endregion
+
+        #region properties
+
         /// <summary>
         /// A simple model placeholder for providing test operations on <see cref="CreateTodoItemModel"/>
         /// </summary>
         private CreateTodoItemModel _todoListItemToTest;
+
+        #endregion
     }
 }
