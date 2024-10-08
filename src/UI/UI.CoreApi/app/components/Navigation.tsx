@@ -1,6 +1,6 @@
 "use client";
 import { FunctionComponent, useState } from "react";
-import MenuIcon from "./svgs/menu";
+import MenuIcon from "./svgs/MenuIcon";
 
 const Navigation: FunctionComponent = (): React.ReactNode => {
   // Add state to handle menu visibility
