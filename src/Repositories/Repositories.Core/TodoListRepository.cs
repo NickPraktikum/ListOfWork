@@ -1,29 +1,31 @@
 ﻿namespace devdeer.ListOfWork.Repositories.Core
 {
-    using devdeer.ListOfWork.Logic.Models;
-    using devdeer.ListOfWork.Repositories.Interfaces;
-    using devdeer.ListOfWork.Logic.Core;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using Interfaces;
+
+    using Logic.Core;
+    using Logic.Models;
 
     /// <summary>
-    /// A repository to handle todos for <see cref="TodoListLogic"/>.
+    /// A repository to handle todos for <see cref="TodoListLogic" />.
     /// </summary>
     public class TodoListRepository : ITodoListRepository
     {
-        /// <inheritdoc/>
+        #region explicit interfaces
+
+        /// <inheritdoc />
         public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
             var todo = new TodoItemModel
             {
                 Title = createTodo.Title,
                 Description = createTodo.Description,
-                DueTime = createTodo.DueTime,
+                DueTime = createTodo.DueTime
             };
             _todoItems.Add(todo);
             return Task.FromResult(todo);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<bool> DeleteTodoAsync(string id)
         {
             var todoToDelete = await GetByIdAsync(id);
@@ -34,17 +36,20 @@
             _todoItems.Remove(todoToDelete);
             return true;
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
             return await Task.FromResult(_todoItems);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<TodoItemModel?> GetByIdAsync(string id)
         {
             return await Task.FromResult(_todoItems.SingleOrDefault(todo => todo.Id == id));
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodo)
         {
             var todoToUpdate = await GetByIdAsync(id);
@@ -60,9 +65,16 @@
             _todoItems.Add(todoToUpdate);
             return todoToUpdate;
         }
+
+        #endregion
+
+        #region properties
+
         /// <summary>
         /// An in-memory storage for todos.
         /// </summary>
         private static List<TodoItemModel> _todoItems { get; } = new();
+
+        #endregion
     }
 }

@@ -1,9 +1,11 @@
 ﻿namespace devdeer.ListOfWork.Tests.Logic.Core
 {
-    using devdeer.ListOfWork.Logic.Models;
-    using devdeer.ListOfWork.Repositories.Interfaces;
+    using ListOfWork.Logic.Models;
+
+    using Repositories.Interfaces;
+
     /// <summary>
-    /// A simple implentation of an in-memory repository for handling <see cref="TodoItemModel"/>s during unit tests.
+    /// A simple implentation of an in-memory repository for handling <see cref="TodoItemModel" />s during unit tests.
     /// </summary>
     public class TodoListTestRepository : ITodoListRepository
     {
@@ -14,25 +16,26 @@
         /// </summary>
         private TodoListTestRepository()
         {
-        } 
+        }
 
         #endregion
 
         #region explicit interfaces
 
-        ///<inheritdoc/> 
+        /// <inheritdoc />
         public Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
             var todo = new TodoItemModel
             {
                 Title = createTodo.Title,
                 Description = createTodo.Description,
-                DueTime = createTodo.DueTime,
+                DueTime = createTodo.DueTime
             };
             Database.Add(todo);
             return Task.FromResult(todo);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<bool> DeleteTodoAsync(string id)
         {
             var todoToDelete = await GetByIdAsync(id);
@@ -43,17 +46,20 @@
             Database.Remove(todoToDelete);
             return true;
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
             return await Task.FromResult(Database);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<TodoItemModel?> GetByIdAsync(string id)
         {
             return await Task.FromResult(Database.SingleOrDefault(todo => todo.Id == id));
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodo)
         {
             var todoToUpdate = await GetByIdAsync(id);
@@ -86,7 +92,7 @@
         #region properties
 
         /// <summary>
-        /// The in-memory <see cref="TodoItemModel"/> database.
+        /// The in-memory <see cref="TodoItemModel" /> database.
         /// </summary>
         private List<TodoItemModel> Database { get; } = new();
 

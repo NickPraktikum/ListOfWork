@@ -5,6 +5,8 @@
     /// </summary>
     public class EntityNotFoundException : Exception
     {
+        #region constructors and destructors
+
         /// <summary>
         /// Constructor with <paramref name="id" />.
         /// </summary>
@@ -12,22 +14,28 @@
         public EntityNotFoundException(string id) : base($"Entity with id {id} not found.")
         {
         }
+
         /// <summary>
-        /// Constructor with <paramref name="id"/> and <paramref name="message"/>.
+        /// Constructor with <paramref name="id" /> and <paramref name="message" />.
         /// </summary>
         /// <param name="id">The unique id of the entity which wasn't found.</param>
         /// <param name="message">The error message text.</param>
         public EntityNotFoundException(string id, string message) : base(message)
         {
         }
+
         /// <summary>
-        /// Constructor with <paramref name="id"/>, <paramref name="message"/> and <paramref name="innerException"/>.
+        /// Constructor with <paramref name="id" />, <paramref name="message" /> and <paramref name="innerException" />.
         /// </summary>
         /// <param name="id">The unique id of the entity which wasn't found.</param>
         /// <param name="message">The error message text.</param>
-        /// <param name="innerException">An inner <see cref="Exception"/> inside the error.</param>
-        public EntityNotFoundException(string id, string message, Exception innerException) : base(message, innerException)
+        /// <param name="innerException">An inner <see cref="Exception" /> inside the error.</param>
+        public EntityNotFoundException(string id, string message, Exception innerException) : base(
+            message,
+            innerException)
         {
         }
+
+        #endregion
     }
 }

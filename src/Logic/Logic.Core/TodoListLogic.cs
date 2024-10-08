@@ -1,26 +1,37 @@
 ﻿namespace devdeer.ListOfWork.Logic.Core
 {
-    using devdeer.ListOfWork.Logic.Common.Exceptions;
-    using devdeer.ListOfWork.Logic.Interfaces;
-    using devdeer.ListOfWork.Logic.Models;
-    using devdeer.ListOfWork.Repositories.Interfaces;
-    using System.Collections.Generic;
+    using Common.Exceptions;
+
+    using Interfaces;
+
+    using Models;
+
+    using Repositories.Interfaces;
+
     /// <summary>
-    /// Default logic for handling the <see cref="TodoItemModel"/>s.
+    /// Default logic for handling the <see cref="TodoItemModel" />s.
     /// </summary>
     public class TodoListLogic : ITodoListLogic
     {
+        #region constructors and destructors
+
         /// <summary>
         /// A default contstructor for the logic.
         /// </summary>
         /// <param name="repository">The repository that is supposed to be injected into the logic.</param>
-        public TodoListLogic(ITodoListRepository repository) {
+        public TodoListLogic(ITodoListRepository repository)
+        {
             Repository = repository;
         }
+
+        #endregion
+
+        #region explicit interfaces
+
         /// <inheritdoc />
         public async Task<TodoItemModel> CreateTodoAsync(CreateTodoItemModel createTodo)
         {
-            if(string.IsNullOrEmpty(createTodo.Title) || string.IsNullOrWhiteSpace(createTodo.Title))
+            if (string.IsNullOrEmpty(createTodo.Title) || string.IsNullOrWhiteSpace(createTodo.Title))
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(createTodo.Title));
             }
@@ -31,10 +42,13 @@
             var dateTimeNow = DateTimeOffset.UtcNow;
             if (createTodo.DueTime <= dateTimeNow)
             {
-                throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
+                throw new ArgumentException(
+                    "Value can't have a date that is earlier or equals the time at the moment.",
+                    nameof(createTodo.DueTime));
             }
             return await Repository.CreateTodoAsync(createTodo);
         }
+
         /// <inheritdoc />
         public async Task<bool> DeleteTodoAsync(string id)
         {
@@ -49,11 +63,13 @@
             var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             return await Repository.DeleteTodoAsync(id);
         }
+
         /// <inheritdoc />
         public async Task<IEnumerable<TodoItemModel>> GetAllTodosAsync()
         {
             return await Repository.GetAllTodosAsync();
         }
+
         /// <inheritdoc />
         public async Task<TodoItemModel?> GetTodoByIdAsync(string id)
         {
@@ -67,6 +83,7 @@
             }
             return await Repository.GetByIdAsync(id);
         }
+
         /// <inheritdoc />
         public async Task<TodoItemModel?> SetTodoToCompleteAsync(string id)
         {
@@ -91,6 +108,7 @@
             todo.CompletedAt = dateTimeNow;
             return await Repository.UpdateTodoAsync(id, todo);
         }
+
         /// <inheritdoc />
         public async Task<TodoItemModel?> UpdateTodoAsync(string id, TodoItemModel updateTodoItem)
         {
@@ -106,26 +124,41 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Id));
             }
-            if (string.IsNullOrEmpty(updateTodoItem.Description) || string.IsNullOrWhiteSpace(updateTodoItem.Description))
+            if (string.IsNullOrEmpty(updateTodoItem.Description)
+                || string.IsNullOrWhiteSpace(updateTodoItem.Description))
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Description));
             }
             if (updateTodoItem.DueTime <= updateTodoItem.CreatedAt)
             {
-                throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(updateTodoItem.DueTime));
+                throw new ArgumentException(
+                    "Value can't have a date that is earlier or equals the time at the moment.",
+                    nameof(updateTodoItem.DueTime));
             }
             if (updateTodoItem.CompletedAt > updateTodoItem.DueTime)
             {
-                throw new ArgumentException($"Value can't have a date that is after the time of when the item is due({nameof(updateTodoItem.DueTime)}).", nameof(updateTodoItem.CompletedAt));
+                throw new ArgumentException(
+                    $"Value can't have a date that is after the time of when the item is due({nameof(updateTodoItem.DueTime)}).",
+                    nameof(updateTodoItem.CompletedAt));
             }
-            if (updateTodoItem.CompletedAt <= updateTodoItem.CreatedAt) {
-                throw new ArgumentException($"Value can't have a date that is earlier or equals the time of creation({nameof(updateTodoItem.CreatedAt)}).", nameof(updateTodoItem.CompletedAt));
+            if (updateTodoItem.CompletedAt <= updateTodoItem.CreatedAt)
+            {
+                throw new ArgumentException(
+                    $"Value can't have a date that is earlier or equals the time of creation({nameof(updateTodoItem.CreatedAt)}).",
+                    nameof(updateTodoItem.CompletedAt));
             }
             return await Repository.UpdateTodoAsync(id, updateTodoItem);
         }
+
+        #endregion
+
+        #region properties
+
         /// <summary>
         /// The repository for handling todo in the backend.
         /// </summary>
         private ITodoListRepository Repository { get; }
+
+        #endregion
     }
 }
