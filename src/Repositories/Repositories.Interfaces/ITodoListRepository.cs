@@ -24,7 +24,7 @@
         /// <returns>A <see cref="TodoItemModel"/> with the provided <paramref name="id"/> or <c>null</c> if the <see cref="TodoItemModel"/> with provided <paramref name="id"/> wasn't found in the backend.</returns>
         Task<TodoItemModel?> GetByIdAsync(string id);
         /// <summary>
-        /// Deleted a single <see cref="TodoItemModel"/> from the backend.
+        /// Deletes a single <see cref="TodoItemModel"/> from the backend.
         /// </summary>
         /// <param name="id">The id of the <see cref="TodoItemModel"/> in the backend.</param>
         /// <returns><c>true</c> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was successfully deleted or <c>false</c> if the <see cref="TodoItemModel"/> wasn't deleted from the backend.</returns>

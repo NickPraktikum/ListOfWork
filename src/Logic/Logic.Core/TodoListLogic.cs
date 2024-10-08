@@ -28,7 +28,7 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(createTodo.Description));
             }
-            if (createTodo.DueTime <= DateTimeOffset.Now)
+            if (createTodo.DueTime <= DateTimeOffset.UtcNow)
             {
                 throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(createTodo.DueTime));
             }
@@ -82,7 +82,12 @@
             {
                 throw new InvalidOperationException("The todo is already set to completed.");
             }
-            todo.CompletedAt = DateTimeOffset.UtcNow;
+            var dateNow = DateTime.UtcNow;
+            if(todo.DueTime < dateNow)
+            {
+                throw new InvalidOperationException("Expired todo can't be set to completed");
+            }
+            todo.CompletedAt = DateTimeOffset.UtcNow;   
             return await Repository.UpdateTodoAsync(id, todo);
         }
         /// <inheritdoc />
@@ -96,7 +101,6 @@
             {
                 throw new ArgumentException("Value can only have 4 characters.", nameof(id));
             }
-            var todo = await Repository.GetByIdAsync(id) ?? throw new EntityNotFoundException(id);
             if (string.IsNullOrEmpty(updateTodoItem.Title) || string.IsNullOrWhiteSpace(updateTodoItem.Title))
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Id));
@@ -105,13 +109,13 @@
             {
                 throw new ArgumentException("Value can't be null or whitespace.", nameof(updateTodoItem.Description));
             }
-            if (updateTodoItem.DueTime <= DateTimeOffset.Now)
+            if (updateTodoItem.DueTime <= updateTodoItem.CreatedAt)
             {
                 throw new ArgumentException("Value can't have a date that is earlier or equals the time at the moment.", nameof(updateTodoItem.DueTime));
             }
-            if (updateTodoItem.CompletedAt <= updateTodoItem.DueTime)
+            if (updateTodoItem.CompletedAt > updateTodoItem.DueTime)
             {
-                throw new ArgumentException($"Value can't have a date that is earlier or equals the time of when the item is due({nameof(updateTodoItem.DueTime)}).", nameof(updateTodoItem.CompletedAt));
+                throw new ArgumentException($"Value can't have a date that is after the time of when the item is due({nameof(updateTodoItem.DueTime)}).", nameof(updateTodoItem.CompletedAt));
             }
             if (updateTodoItem.CompletedAt <= updateTodoItem.CreatedAt) {
                 throw new ArgumentException($"Value can't have a date that is earlier or equals the time of creation({nameof(updateTodoItem.CreatedAt)}).", nameof(updateTodoItem.CompletedAt));

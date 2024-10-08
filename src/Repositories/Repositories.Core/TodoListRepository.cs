@@ -2,11 +2,12 @@
 {
     using devdeer.ListOfWork.Logic.Models;
     using devdeer.ListOfWork.Repositories.Interfaces;
+    using devdeer.ListOfWork.Logic.Core;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// A repository to handle todos.
+    /// A repository to handle todos for <see cref="TodoListLogic"/>.
     /// </summary>
     public class TodoListRepository : ITodoListRepository
     {
@@ -26,7 +27,7 @@
         public async Task<bool> DeleteTodoAsync(string id)
         {
             var todoToDelete = await GetByIdAsync(id);
-            if (todoToDelete == null )
+            if (todoToDelete == null)
             {
                 return false;
             }

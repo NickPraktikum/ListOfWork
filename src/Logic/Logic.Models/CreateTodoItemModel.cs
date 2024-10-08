@@ -1,7 +1,7 @@
 ﻿namespace devdeer.ListOfWork.Logic.Models
 {
     /// <summary>
-    /// Represent the data needed for the creation of a single <see cref="TodoItemModel"/>.
+    /// Represents data needed for the creation of a single <see cref="TodoItemModel"/>.
     /// </summary>
     public class CreateTodoItemModel
     {

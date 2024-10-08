@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.Core\Logic.Core.csproj" />
     <ProjectReference Include="..\Repositories.Interfaces\Repositories.Interfaces.csproj" />
   </ItemGroup>
 

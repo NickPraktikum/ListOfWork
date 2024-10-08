@@ -2,7 +2,6 @@
 {
     using devdeer.ListOfWork.Logic.Common.Exceptions;
     using Microsoft.AspNetCore.Mvc;
-    using System.Diagnostics;
     using System.Text.Json;
     /// <summary>
     /// A middleware intended to handle requests with exceptions from the logic.

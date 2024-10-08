@@ -77,7 +77,7 @@ namespace devdeer.ListOfWork.Tests.Logic.Models
         public void TodoListItemCreationTimeIsNow()
         {
             // Arrange
-            var dateNow = DateTimeOffset.Now;
+            var dateNow = DateTimeOffset.UtcNow;
             // Act & Assert
             Assert.That(_todoListItemToTest.CreatedAt, Is.EqualTo(dateNow).Within(TimeSpan.FromSeconds(1)));
         }

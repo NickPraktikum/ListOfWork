@@ -30,10 +30,10 @@
         /// <returns><c>true</c> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was deleted from the backend or <c>false</c> if the <see cref="TodoItemModel"/> with the <paramref name="id"/> couldn't be deleted.</returns>
         Task<bool> DeleteTodoAsync(string id);
         /// <summary>
-        /// Sets a single <see cref="TodoItemModel"/> complition state to done.
+        /// Sets a single <see cref="TodoItemModel"/> complition state to completed.
         /// </summary>
-        /// <param name="id">The id of the <see cref="TodoItemModel"/> whose completion state is supposed to be set to done.</param>
-        /// <returns>A <see cref="TodoItemModel"/>, whose <see cref="TodoItemModel.CompletedAt"/> is set to <see cref="DateTimeOffset.Now"/> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was found and <c>null</c> if the <see cref="TodoItemModel"/> with the <paramref name="id"/> wasn't found.</returns>
+        /// <param name="id">The id of the <see cref="TodoItemModel"/> whose completion state is supposed to be set to completed.</param>
+        /// <returns>A <see cref="TodoItemModel"/>, whose <see cref="TodoItemModel.CompletedAt"/> is set to <see cref="DateTimeOffset.UtcNow"/> if the <see cref="TodoItemModel"/> with the provided <paramref name="id"/> was found or <c>null</c> if the <see cref="TodoItemModel"/> with the <paramref name="id"/> wasn't found.</returns>
         Task<TodoItemModel?> SetTodoToCompleteAsync(string id);
         /// <summary>
         /// Updates the data inside of a single <see cref="TodoItemModel"/>. 

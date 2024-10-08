@@ -20,9 +20,9 @@
         /// </summary>
         public string Description { get; set; } = default!;
         /// <summary>
-        /// The time of the item creation. The time is automatically set to now to display the time of the request.
+        /// The time of the item creation. The time is automatically set to now to display the time of the creation.
         /// </summary>
-        public DateTimeOffset CreatedAt { get; } = DateTimeOffset.Now;
+        public DateTimeOffset CreatedAt { get; } = DateTimeOffset.UtcNow;
         /// <summary>
         /// The time when the todo item is supposed to be fulfilled.
         /// </summary>

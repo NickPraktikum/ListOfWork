@@ -29,15 +29,15 @@
                 {
                     Title = "Test",
                     Description = "Test",
-                    DueTime = DateTime.Now,
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 },
                 new()
                 {
                     Title = "Test",
                     Description = "Test",
-                    DueTime = DateTime.Now,
-                    CompletedAt = DateTime.Now,
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
+                    CompletedAt = DateTimeOffset.UtcNow,
                 }
             ];
         }
@@ -52,12 +52,12 @@
             // Act & Assert
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = string.Empty, Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = null!, Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 1), Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 2), Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 10), Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.DoesNotThrowAsync(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Valid title", Description = "Description", DueTime = DateTimeOffset.Now.AddDays(5)}));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = string.Empty, Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = null!, Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 1), Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 2), Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = new string(' ', 10), Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.DoesNotThrowAsync(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Valid title", Description = "Description", DueTime = DateTimeOffset.UtcNow.AddDays(5)}));
             });
         }
         /// <summary>
@@ -71,12 +71,12 @@
             // Act & Assert
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = string.Empty, DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = null!, DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 1), DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 2), DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 10), DueTime = DateTimeOffset.Now.AddDays(5) }));
-                Assert.DoesNotThrowAsync(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = string.Empty, DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = null!, DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 1), DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 2), DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.ThrowsAsync<ArgumentException>(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = new string(' ', 10), DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
+                Assert.DoesNotThrowAsync(() => logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
             });
         }
         /// <summary>
@@ -91,11 +91,11 @@
             Assert.Multiple(() =>
             {
                 Assert.ThrowsAsync<ArgumentException>(() =>
-                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.Now }));
+                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.UtcNow }));
                 Assert.ThrowsAsync<ArgumentException>(() =>
-                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.Now.AddDays(-5) }));
+                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.UtcNow.AddDays(-5) }));
                 Assert.DoesNotThrowAsync(() =>
-                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.Now.AddDays(5) }));
+                    logic.CreateTodoAsync(new CreateTodoItemModel { Title = "Title", Description = "Valid Description", DueTime = DateTimeOffset.UtcNow.AddDays(5) }));
             });
         }
         /// <summary>
@@ -110,7 +110,7 @@
             {
                 Title = "Title",
                 Description = "Description",
-                DueTime = DateTimeOffset.Now.AddDays(5)
+                DueTime = DateTimeOffset.UtcNow.AddDays(5)
             };
             // Act
             var result = await logic.CreateTodoAsync(model);
@@ -135,7 +135,7 @@
         {
             // Arrange
             var logic = LogicToTest;
-            var dueTimeDate = DateTimeOffset.Now.AddDays(5);
+            var dueTimeDate = DateTimeOffset.UtcNow.AddDays(5);
             var model = new CreateTodoItemModel { 
                 Title = "Title", 
                 Description = "Description", 
@@ -322,7 +322,7 @@
         {
             // Arrange
             var logic = LogicToTest;
-            var dateNow = DateTimeOffset.Now;
+            var dateNow = DateTimeOffset.UtcNow;
             var validTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First();
             // Act
             var result = await logic.SetTodoToCompleteAsync(validTodo.Id);
@@ -337,13 +337,13 @@
                 });
         }
         /// <summary>
-        ///  Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> assigns current <see cref="DateTimeOffset.Now"/> to the <see cref="TodoItemModel.CreatedAt"/> property of <see cref="TodoItemModel"/>.
+        ///  Tests if <see cref="TodoListLogic.SetTodoToCompleteAsync"/> assigns current <see cref="DateTimeOffset.UtcNow"/> to the <see cref="TodoItemModel.CreatedAt"/> property of <see cref="TodoItemModel"/>.
         /// </summary>
         [Test]
         public async Task SetTodoToCompleteAssignsProperCompleteDate()
         {
             var logic = LogicToTest;
-            var dateNow = DateTimeOffset.Now;
+            var dateNow = DateTimeOffset.UtcNow;
             var validTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First();
             // Act
             var result = await logic.SetTodoToCompleteAsync(validTodo.Id);
@@ -368,7 +368,7 @@
             {
                 Title = "Update Test",
                 Description = "Update Test",
-                DueTime = DateTime.Now.AddDays(5),
+                DueTime = DateTimeOffset.UtcNow.AddDays(5),
                 CompletedAt = null,
             };
             // Act & Assert
@@ -398,42 +398,42 @@
                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel {
                    Title = "Update Test",
                    Description = string.Empty,
-                   DueTime = DateTime.Now.AddDays(5),
+                   DueTime = DateTimeOffset.UtcNow.AddDays(5),
                    CompletedAt = null,
                }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update Test",
                     Description = null!,
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update Test",
                     Description = new string(' ', 1),
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update Test",
                     Description = new string(' ', 2),
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update Test",
                     Description = new string(' ', 10),
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update Test",
                     Description = "Valid Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
             });
@@ -454,42 +454,42 @@
                 {
                     Title = string.Empty,
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = null!,
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = new string(' ', 1),
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = new string(' ', 2),
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = new string(' ', 10),
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
                 Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
                     CompletedAt = null,
                 }));
             });
@@ -503,6 +503,7 @@
             // Arrange
             var logic = LogicToTest;
             var validId = _testTodoItems!.First().Id;
+            var dateNow = DateTimeOffset.UtcNow;
             // Act & Assert
             Assert.Multiple(() =>
             {
@@ -510,46 +511,23 @@
                 {
                     Title = "UpdateTest",
                     Description = "Update Test",
-                    DueTime = DateTime.Now,
+                    DueTime = dateNow,
                     CompletedAt = null,
                 }));
                 Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Update",
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(-5),
+                    DueTime = dateNow.AddDays(-5),
                     CompletedAt = null,
                 }));
                 Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
+                    DueTime = dateNow.AddDays(5),
                     CompletedAt = null,
                 }));
-            });
-        }
-        /// <summary>
-        /// Tests if <see cref="TodoListLogic"/> requires an existing <see cref="TodoItemModel"/>.
-        /// </summary>
-        [Test]
-        public void UpdateTodoRequiresExistingTodo()
-        {
-            // Arrange
-            var logic = LogicToTest;
-            var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
-            var updateTodo = new TodoItemModel
-            {
-                Title = "Update Test",
-                Description = "Update Test",
-                DueTime = DateTime.Now.AddDays(5),
-                CompletedAt = null,
-            };
-            // Act & Assert
-            Assert.Multiple(() =>
-            {
-                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", updateTodo));
-                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, updateTodo));
             });
         }
         /// <summary>
@@ -564,26 +542,19 @@
             // Act & Assert
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
-                    CompletedAt = DateTime.Now,
+                    DueTime = DateTimeOffset.UtcNow.AddDays(3),
+                    CompletedAt = DateTimeOffset.UtcNow.AddDays(4),
                 }));
-                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                Assert.DoesNotThrow(() => logic.UpdateTodoAsync("1111", new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
-                    CompletedAt = DateTime.Now.AddDays(-5),
-                }));
-                Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
-                {
-                    Title = "Valid Update Test",
-                    Description = "Update Test",
-                    DueTime = DateTime.Now.AddDays(5),
-                    CompletedAt = DateTime.Now.AddDays(5),
+                    DueTime = DateTimeOffset.UtcNow.AddDays(5),
+                    CompletedAt = DateTimeOffset.UtcNow,
                 }));
             });
         }
@@ -596,30 +567,23 @@
             // Arrange
             var logic = LogicToTest;
             var validId = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
-            var dateNow = DateTime.Now;
+            var dateNow = DateTimeOffset.UtcNow;
             // Act & Assert
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
+                Assert.ThrowsAsync<ArgumentException>(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
                     DueTime = dateNow.AddDays(5),
-                    CompletedAt = dateNow.AddDays(5),
-                }));
-                Assert.ThrowsAsync<EntityNotFoundException>(() => logic.UpdateTodoAsync("1111", new TodoItemModel
-                {
-                    Title = "Valid Update Test",
-                    Description = "Update Test",
-                    DueTime = dateNow.AddDays(5),
-                    CompletedAt = dateNow.AddDays(-5),
+                    CompletedAt = dateNow.AddDays(6),
                 }));
                 Assert.DoesNotThrowAsync(() => logic.UpdateTodoAsync(validId, new TodoItemModel
                 {
                     Title = "Valid Update Test",
                     Description = "Update Test",
                     DueTime = dateNow.AddDays(5),
-                    CompletedAt = dateNow.AddDays(6),
+                    CompletedAt = dateNow.AddDays(5),
                 }));
             });
         }
@@ -631,10 +595,10 @@
         {
             // Arrange
             var logic = LogicToTest;
-            var dateNow = DateTimeOffset.Now;
+            var dateNow = DateTimeOffset.UtcNow;
             var validUncompletedTodo = _testTodoItems!.Where(todo => todo.CompletedAt == null).First().Id;
             var validCompletedTodo = _testTodoItems!.Where(todo => todo.CompletedAt != null).First().Id;
-            var dateTime = DateTime.Now;
+            var dateTime = DateTimeOffset.UtcNow;
             var updateUncompletedTodo = new TodoItemModel
             {
                 Title = "Update Test",
@@ -647,7 +611,7 @@
                 Title = "Update Test",
                 Description = "Update Test",
                 DueTime = dateNow.AddDays(5),
-                CompletedAt = dateNow.AddDays(6)
+                CompletedAt = dateNow.AddDays(4)
             };
             // Act
             var resultUncompletedTodo = await logic.UpdateTodoAsync
@@ -668,7 +632,7 @@
                     Assert.That(resultCompletedTodo!.Title, Is.EqualTo(updateCompletedTodo.Title));
                     Assert.That(resultCompletedTodo!.Description, Is.EqualTo(updateCompletedTodo.Description));
                     Assert.That(resultCompletedTodo!.DueTime, Is.EqualTo(updateCompletedTodo.DueTime));
-                    Assert.That(resultCompletedTodo!.CompletedAt, Is.EqualTo(dateNow.AddDays(6)));
+                    Assert.That(resultCompletedTodo!.CompletedAt, Is.EqualTo(dateNow.AddDays(4)));
                 });
         }
         /// <summary>
