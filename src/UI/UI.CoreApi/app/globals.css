@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap");
 
 :root {
   --background: #ffffff;
@@ -14,10 +15,9 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.oxygen-mono-regular {
+  font-family: "Oxygen Mono", monospace;
+  font-style: normal;
 }
 
 @layer utilities {

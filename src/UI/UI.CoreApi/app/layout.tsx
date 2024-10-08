@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
 import { QueryProvider } from "./providers/QueryProvider";
+import Navigation from "./components/Navigation";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -14,8 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="bg-[#FFD99F] flex justify-center items-center">
+      <body className="w-[1058px] h-[615px] bg-white mt-[100px] p-[41px]">
+        <Navigation />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
