@@ -8,7 +8,20 @@ using devdeer.ListOfWork.Services.CoreApi.Middlewares;
 
 using Microsoft.OpenApi.Models;
 
+var policyName = "_AllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policyName,
+                      builder =>
+                      {
+                          builder
+                            .WithOrigins("http://localhost:3000")
+                            //.AllowAnyOrigin()
+                            .WithMethods("GET")
+                            .AllowAnyHeader();
+                      });
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
@@ -40,6 +53,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.UseCors(policyName);
 app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
