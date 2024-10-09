@@ -12,7 +12,7 @@ const CreateForm: FunctionComponent = () => {
     <>
       <form
         onClick={(e) => e.preventDefault()}
-        className="bg-[#FFB0B0] w-[877px] h-[383px] flex justify-around items-center gap-[22px] flex-col oxygen-mono-regular py-6 shadow-lg overflow-y-scroll scroll-behavior"
+        className="bg-[#FFB0B0] w-[877px] h-[583px] flex justify-around items-center gap-[22px] flex-col oxygen-mono-regular py-6 shadow-lg overflow-y-scroll scroll-behavior"
       >
         <h4 className="text-white text-xl">Create todo</h4>
         <input

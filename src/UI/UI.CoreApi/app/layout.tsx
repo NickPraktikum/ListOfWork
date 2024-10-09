@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-[#FFD99F] flex justify-center items-center">
-      <body className="w-[1058px] h-[615px] bg-white mt-[100px] p-[41px] flex flex-col items-center">
+      <body className="w-[1058px] h-[815px] bg-white mt-[100px] p-[41px] flex flex-col items-center">
         <div className="justify-between items-center p-4 mb-[50px]">
           <Navigation />
         </div>
