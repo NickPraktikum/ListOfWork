@@ -6,7 +6,6 @@ import { UpdateTodo } from "../functions/UpdateTodo";
 const UpdateForm: FunctionComponent = () => {
   const { mutate, error } = UpdateTodo();
 
-  // State variables for form inputs
   const [id, setId] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -20,7 +19,6 @@ const UpdateForm: FunctionComponent = () => {
   const [dueDateError, setDueDateError] = useState<boolean>(false);
   const [completedDateError, setCompletedDateError] = useState<boolean>(false);
 
-  // Function to handle form submission and validation
   const handleUpdateTodo = () => {
     let isValid = true;
 
