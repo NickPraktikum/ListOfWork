@@ -5,18 +5,13 @@ import ErrorBlock from "./ErrorBlock";
 
 const CreateForm: FunctionComponent = () => {
   const { mutate, error } = CreateTodo();
-
-  // State variables for form inputs
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
-
-  // State variables for validation errors
   const [titleError, setTitleError] = useState<boolean>(false);
   const [descriptionError, setDescriptionError] = useState<boolean>(false);
   const [dueDateError, setDueDateError] = useState<boolean>(false);
 
-  // Function to handle form submission and validation
   const handleCreateTodo = () => {
     let isValid = true;
 
@@ -48,7 +43,6 @@ const CreateForm: FunctionComponent = () => {
         dueTime: dueDate.toString(),
       });
 
-      // Reset form fields after submission
       setTitle("");
       setDescription("");
       setDueDate("");

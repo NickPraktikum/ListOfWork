@@ -9,7 +9,7 @@ export default function Page() {
   const { data, error, isLoading } = GetAllTodos();
   return (
     <>
-      {isLoading ? <LoadingBlock /> : null}
+      {isLoading && <LoadingBlock />}
       {error != null ? (
         <ErrorBlock message={error.message} />
       ) : (
