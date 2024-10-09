@@ -1,3 +1,4 @@
+// An icon that displays that the todo is not completed yet.
 const LikeIcon = () => {
   return (
     <svg

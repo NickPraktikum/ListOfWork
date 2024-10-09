@@ -1,3 +1,4 @@
+// An icon to delete a single todo.
 const DeleteIcon = () => {
   return (
     <svg

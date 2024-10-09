@@ -1,3 +1,4 @@
+// An icon that displays that a todo is completed.
 const LikedIcon = () => {
   return (
     <svg

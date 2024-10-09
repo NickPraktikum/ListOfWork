@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { ITodoItem } from "../interfaces/ITodoItem";
 import { ICreateTodo } from "../interfaces/ICreateTodo";
+
+// A function that calls the https://localhost:7071/api/v1/TodoList endpoint to create a todo.
 export function CreateTodo() {
   return useMutation<ITodoItem, Error, ICreateTodo>({
     mutationFn: async (parameters: ICreateTodo) => {

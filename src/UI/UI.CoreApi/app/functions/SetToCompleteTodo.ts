@@ -1,5 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { ITodoItem } from "../interfaces/ITodoItem";
+
+// A function that sets the todo to complete with the provided id by calling https://localhost:7071/api/v1/TodoList/${id} endpoint.
 export function SetTodoToComplete() {
   return useMutation<ITodoItem, Error, string>({
     mutationFn: async (id: string) => {

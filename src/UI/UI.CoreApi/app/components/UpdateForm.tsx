@@ -3,6 +3,7 @@ import { FunctionComponent, useState } from "react";
 import ErrorBlock from "./ErrorBlock";
 import { UpdateTodo } from "../functions/UpdateTodo";
 
+// The update form to update a todo with provided id.
 const UpdateForm: FunctionComponent = () => {
   const { mutate, error } = UpdateTodo();
 

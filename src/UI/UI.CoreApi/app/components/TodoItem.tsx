@@ -7,6 +7,7 @@ import { ITodoItem } from "../interfaces/ITodoItem";
 import { SetTodoToComplete } from "../functions/SetToCompleteTodo";
 import { DeleteTodo } from "../functions/DeleteTodo";
 
+// A single representation of the todo item
 const TodoItem: FunctionComponent<ITodoItem> = ({
   id,
   title,

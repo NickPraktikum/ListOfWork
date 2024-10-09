@@ -4,6 +4,7 @@ import { GetTodoById } from "../functions/GetTodoById";
 import TodoItem from "./TodoItem";
 import ErrorBlock from "./ErrorBlock";
 
+// A form to retrieve an element with a provided id.
 const GetForm: FunctionComponent = () => {
   const [id, setId] = useState<string>("");
   const [idError, setIdError] = useState<boolean>(false);

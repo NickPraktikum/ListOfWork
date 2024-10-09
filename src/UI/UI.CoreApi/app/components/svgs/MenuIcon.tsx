@@ -1,3 +1,4 @@
+// An icon to display a menu in the navbar.
 const MenuIcon = () => {
   return (
     <svg

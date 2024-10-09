@@ -3,6 +3,7 @@ import { FunctionComponent, useState } from "react";
 import MenuIcon from "./svgs/MenuIcon";
 import Link from "next/link";
 
+// A navigation bar for the app. Is constantly shown using the providers.
 const Navigation: FunctionComponent = (): React.ReactNode => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 

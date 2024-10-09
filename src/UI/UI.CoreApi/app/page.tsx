@@ -5,6 +5,7 @@ import TodoItems from "./components/TodoItems";
 import { GetAllTodos } from "./functions/GetAllTodos";
 import { ITodoItem } from "./interfaces/ITodoItem";
 
+// A page where a user can list of his todos, delete them and set them to completed.
 export default function Page() {
   const { data, error, isLoading } = GetAllTodos();
   return (
