@@ -4,5 +4,5 @@ export interface ITodoItem {
   description: string;
   createdAt: Date | string;
   dueTime: Date | string;
-  completedAt: Date | null;
+  completedAt: Date | string | null;
 }

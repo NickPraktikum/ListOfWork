@@ -17,6 +17,9 @@ export function GetTodoById(id: string) {
             return await res.json();
           } else if (res.status === 404) {
             throw Error("No todos were found!");
+          } else if (res.status == 400) {
+            const response = await res.json();
+            throw Error(response.detail);
           } else {
             throw Error("Couldn't retrieve todos");
           }

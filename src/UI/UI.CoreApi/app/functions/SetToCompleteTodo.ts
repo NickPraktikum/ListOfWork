@@ -13,8 +13,7 @@ export function SetTodoToComplete() {
         .then(async (res) => {
           if (res.ok) {
             return await res.json();
-          }
-          if (res.status == 400) {
+          } else if (res.status == 400) {
             const response = await res.json();
             throw Error(response.detail);
           } else {
@@ -25,7 +24,7 @@ export function SetTodoToComplete() {
           throw Error(`${err}`);
         });
     },
-    retry: 0,
+    retry: 1,
     retryDelay: 1000,
   });
 }

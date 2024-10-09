@@ -13,8 +13,7 @@ export function DeleteTodo() {
         .then(async (res) => {
           if (res.ok) {
             return await res.json();
-          }
-          if (res.status == 400) {
+          } else if (res.status == 400) {
             const response = await res.json();
             throw Error(response.detail);
           } else {
