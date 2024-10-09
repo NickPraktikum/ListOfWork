@@ -1,4 +1,4 @@
-﻿namespace devdeer.ListOfWork.Repositories.Interfaces
+﻿namespace devdeer.ListOfWork.Logic.Interfaces
 {
     using Logic.Models;
 

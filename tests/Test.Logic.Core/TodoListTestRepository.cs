@@ -2,7 +2,7 @@
 {
     using ListOfWork.Logic.Models;
 
-    using Repositories.Interfaces;
+    using devdeer.ListOfWork.Logic.Interfaces;
 
     /// <summary>
     /// A simple implentation of an in-memory repository for handling <see cref="TodoItemModel" />s during unit tests.

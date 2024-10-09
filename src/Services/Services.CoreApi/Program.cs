@@ -2,8 +2,7 @@ using System.Reflection;
 
 using devdeer.ListOfWork.Logic.Core;
 using devdeer.ListOfWork.Logic.Interfaces;
-using devdeer.ListOfWork.Repositories.Core;
-using devdeer.ListOfWork.Repositories.Interfaces;
+using devdeer.ListOfWork.Repositories.Mock;
 using devdeer.ListOfWork.Services.CoreApi.Middlewares;
 
 using Microsoft.OpenApi.Models;

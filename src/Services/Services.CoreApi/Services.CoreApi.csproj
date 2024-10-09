@@ -16,8 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Logic\Logic.Core\Logic.Core.csproj" />
     <ProjectReference Include="..\..\Logic\Logic.Interfaces\Logic.Interfaces.csproj" />
-    <ProjectReference Include="..\..\Repositories\Repositories.Core\Repositories.Core.csproj" />
-    <ProjectReference Include="..\..\Repositories\Repositories.Interfaces\Repositories.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Repositories\Repositories.Mock\Repositories.Mock.csproj" />
   </ItemGroup>
 
 </Project>

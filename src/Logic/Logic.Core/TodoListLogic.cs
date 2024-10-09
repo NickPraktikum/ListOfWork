@@ -6,7 +6,6 @@
 
     using Models;
 
-    using Repositories.Interfaces;
 
     /// <summary>
     /// Default logic for handling the <see cref="TodoItemModel" />s.

@@ -1,6 +1,6 @@
-﻿namespace devdeer.ListOfWork.Repositories.Core
+﻿namespace devdeer.ListOfWork.Repositories.Mock
 {
-    using Interfaces;
+    using devdeer.ListOfWork.Logic.Interfaces;
 
     using Logic.Core;
     using Logic.Models;
