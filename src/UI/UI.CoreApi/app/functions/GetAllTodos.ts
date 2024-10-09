@@ -26,7 +26,7 @@ export function GetAllTodos() {
         });
     },
     refetchInterval: 5000,
-    retry: 3,
+    retry: 1,
     retryDelay: 5000,
   });
 }

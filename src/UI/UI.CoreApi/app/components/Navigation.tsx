@@ -4,7 +4,7 @@ import MenuIcon from "./svgs/MenuIcon";
 import Link from "next/link";
 
 const Navigation: FunctionComponent = (): React.ReactNode => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
