@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo List Frontend Application
 
-## Getting Started
+This is a frontend web application built using Next.js, Tailwind CSS, React Query, and TypeScript. The application allows users to create, retrieve, update, and delete tasks, leveraging a backend API for managing the todo items.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Create Todo**: Users can create new todo items by providing a title, description, and due date.
+- **View Todos**: Fetch and display a list of all todo items.
+- **Update Todo**: Edit existing todo items by updating their title, description, and due/completion date.
+- **Delete Todo**: Remove todo items from the list.
+- **Mark as Completed**: Users can mark tasks as completed.
+- **Responsive UI**: Styled using Tailwind CSS, with a mobile-friendly design.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **[Next.js](https://nextjs.org/)**: A React framework for server-side rendering and static site generation.
+- **[TypeScript](https://www.typescriptlang.org/)**: A typed superset of JavaScript to improve code quality and maintainability.
+- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for designing responsive and modern UI.
+- **[React Query](https://react-query.tanstack.com/)**: For managing server state and performing efficient data fetching.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+- **components/**: Reusable UI components such as forms, buttons, and todo list items.
+- **functions/**: Contains all the API interaction functions using React Query (e.g., `CreateTodo`, `GetAllTodos`).
+- **pages/**: Includes the pages of the app, with components mapped to each route.
+- **interfaces/**: TypeScript interfaces used to define data models like `ITodoItem`, `ICreateTodo`, etc.
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `yarn dev`: Starts the development server.
+- `yarn build`: Builds the application for production.
+- `yarn start`: Starts the production server.
+- `yarn lint`: Lints the project using ESLint.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Integration
 
-## Deploy on Vercel
+The app interacts with a backend API to manage todos. Each operation is handled by a React Query hook:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **CreateTodo**: Sends a `POST` request to create a new task.
+- **GetTodoById**: Sends a `GET` request and retrieves a todo by its Id.
+- **GetAllTodos**: Sends a `GET` request and retrieves a list of all todos.
+- **UpdateTodo**: Sends a `PUT` request and updates an existing todo.
+- **DeleteTodo**: Sends a `PATCH` request and deletes a specific todo by its Id.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Custom Styling
+
+Tailwind CSS is used for styling the application. The app uses a custom font, **Oxygen Mono**, and employs Tailwind's utility classes for layout, spacing, and responsive design.
