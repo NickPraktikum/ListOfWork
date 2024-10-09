@@ -1,9 +1,10 @@
-﻿namespace devdeer.ListOfWork.Services.CoreApi.Middlewares
+﻿namespace devdeer.ListOfWork.Logic.Common.Middlewares
 {
     using System.Text.Json;
 
     using Logic.Common.Exceptions;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
