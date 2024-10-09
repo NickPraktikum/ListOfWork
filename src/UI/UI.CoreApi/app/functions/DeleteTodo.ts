@@ -28,7 +28,7 @@ export function DeleteTodo() {
     retry: 0,
     retryDelay: 1000,
     onSuccess: () => {
-      queryClient.invalidateQueries(["all-todos"]);
+      queryClient.invalidateQueries({ queryKey: ["all-todos"] });
     },
   });
 }
