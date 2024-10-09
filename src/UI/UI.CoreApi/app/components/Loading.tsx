@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 
+// A loading block that is thrown once an the request is in the loading state.
 const LoadingBlock: FunctionComponent = () => {
   return (
     <div className="flex items-center justify-center h-screen">

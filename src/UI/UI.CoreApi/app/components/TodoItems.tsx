@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import TodoItem from "./TodoItem";
 import { ITodoItem } from "../interfaces/ITodoItem";
 
+// A block of item that receives data and displays the todos.
 const TodoItems: FunctionComponent<{ data: ITodoItem[] }> = ({ data }) => {
   return (
     <div className="overflow-y-scroll scroll-behavior">

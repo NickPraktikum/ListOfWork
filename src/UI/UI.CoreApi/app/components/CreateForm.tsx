@@ -3,6 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { CreateTodo } from "../functions/CreateTodo";
 import ErrorBlock from "./ErrorBlock";
 
+// A form that creates a todo element.
 const CreateForm: FunctionComponent = () => {
   const { mutate, error } = CreateTodo();
   const [title, setTitle] = useState<string>("");

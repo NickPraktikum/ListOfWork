@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ITodoItem } from "../interfaces/ITodoItem";
 
+// // A function that calls the https://localhost:7071/api/v1/TodoList endpoint to retrieve all of the todos.
 export function GetAllTodos() {
   return useQuery<ITodoItem[], Error>({
     queryKey: ["all-todos"],

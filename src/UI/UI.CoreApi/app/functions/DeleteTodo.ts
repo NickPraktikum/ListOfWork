@@ -1,4 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+// A function that calls the https://localhost:7071/api/v1/TodoList/${id} endpoint to delete a todo with the provided id.
 export function DeleteTodo() {
   const queryClient = useQueryClient();
   return useMutation<boolean, Error, string>({
