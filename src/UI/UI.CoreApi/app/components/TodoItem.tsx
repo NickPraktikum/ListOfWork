@@ -1,32 +1,34 @@
 "use client";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect } from "react";
 import LikeIcon from "./svgs/LikeIcon";
 import DeleteIcon from "./svgs/DeleteIcon";
 import LikedIcon from "./svgs/LikedIcon";
 import { ITodoItem } from "../interfaces/ITodoItem";
+import { SetTodoToComplete } from "../functions/SetToCompleteTodo";
 
 const TodoItem: FunctionComponent<ITodoItem> = ({
+  id,
   title,
   description,
   createdAt,
   dueTime,
   completedAt,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const toggleLike = () => {
-    setIsLiked(!isLiked);
-  };
+  const { mutate, error } = SetTodoToComplete();
+  useEffect(() => {
+    console.log(error?.message);
+  }, [error]);
   return (
     <div className="w-[977px] h-auto group flex flex-col p-6 mb-4 bg-[#FFAD60] rounded-xl shadow-lg transition-transform duration-[900ms] oxygen-mono-regular">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-xl font-bold text-gray-800">Title: {title}</h3>
         <div className="flex space-x-4">
           <button
-            onClick={toggleLike}
+            onClick={() => mutate(id)}
             aria-label="Like"
             className="focus:outline-none"
           >
-            {isLiked ? <LikedIcon /> : <LikeIcon />}
+            {completedAt != null ? <LikedIcon /> : <LikeIcon />}
           </button>
 
           <button

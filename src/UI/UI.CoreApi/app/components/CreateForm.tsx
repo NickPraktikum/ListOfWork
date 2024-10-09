@@ -1,10 +1,10 @@
 "use client";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { CreateTodo } from "../functions/CreateTodo";
 import ErrorBlock from "./ErrorBlock";
 
 const CreateForm: FunctionComponent = () => {
-  const { mutate, error, isLoading, isError, isSuccess } = CreateTodo();
+  const { mutate, error } = CreateTodo();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
@@ -55,7 +55,6 @@ const CreateForm: FunctionComponent = () => {
           type="submit"
           className="bg-white w-[300px] h-auto p-5 rounded-lg shadow-lg"
           onClick={() => {
-            console.log("mutation");
             mutate({
               title: title,
               description: description,

@@ -12,7 +12,7 @@ const TodoItems: FunctionComponent<{ data: ITodoItem[] }> = ({ data }) => {
           createdAt={todo.createdAt}
           dueTime={todo.dueTime}
           key={index}
-          id={""}
+          id={todo.id}
           completedAt={todo.completedAt}
         />
       ))}
