@@ -10,9 +10,13 @@ const Navigation: FunctionComponent = (): React.ReactNode => {
     setMenuOpen(!menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <div
-      className={`w-[977px] h-auto bg-[#96CEB4] rounded-[10px] flex flex-col items-start px-6 pt-4 oxygen-mono-regular shadow-lg  transition-all duration-[600ms] ease-linear transform  ${
+      className={`w-[977px] h-auto bg-[#96CEB4] rounded-[10px] flex flex-col items-start px-6 pt-4 oxygen-mono-regular shadow-lg transition-all duration-[600ms] ease-linear transform ${
         menuOpen ? "py-4" : ""
       }`}
     >
@@ -34,22 +38,34 @@ const Navigation: FunctionComponent = (): React.ReactNode => {
       >
         <ul className="flex flex-col space-y-0 text-lg">
           <Link href="/">
-            <li className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300">
+            <li
+              className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300"
+              onClick={closeMenu}
+            >
               <p className="text-black">Todos</p>
             </li>
           </Link>
           <Link href="/CreateTodo">
-            <li className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300">
+            <li
+              className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300"
+              onClick={closeMenu}
+            >
               <p className="text-black">Create todo</p>
             </li>
           </Link>
-          <Link href="/GetTodo" className="text-black">
-            <li className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300">
+          <Link href="/GetTodo">
+            <li
+              className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300"
+              onClick={closeMenu}
+            >
               <p className="text-black">Get todo</p>
             </li>
           </Link>
-          <Link href="/UpdateTodo" className="text-black">
-            <li className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300">
+          <Link href="/UpdateTodo">
+            <li
+              className="hover:bg-gray-100 px-4 py-2 border-t border-b border-gray-300"
+              onClick={closeMenu}
+            >
               <p className="text-black">Update todo</p>
             </li>
           </Link>

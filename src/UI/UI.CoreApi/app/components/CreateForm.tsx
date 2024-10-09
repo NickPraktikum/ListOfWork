@@ -60,6 +60,9 @@ const CreateForm: FunctionComponent = () => {
               description: description,
               dueTime: dueDate.toString(),
             });
+            setTitle("");
+            setDescription("");
+            setDueDate("");
           }}
         >
           Create todo

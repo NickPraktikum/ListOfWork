@@ -25,7 +25,7 @@ export function GetAllTodos() {
           throw Error(`${err}`);
         });
     },
-    refetchInterval: 3000,
+    refetchInterval: 5000,
     retry: 3,
     retryDelay: 5000,
   });
