@@ -3,7 +3,7 @@ import { ITodoItem } from "../interfaces/ITodoItem";
 
 export function GetAllTodos() {
   return useQuery<ITodoItem[], Error>({
-    queryKey: ["all-available-books"],
+    queryKey: ["all-todos"],
     queryFn: async () => {
       return await fetch("https://localhost:7071/api/v1/TodoList", {
         method: "GET",
@@ -16,9 +16,9 @@ export function GetAllTodos() {
           if (res.ok) {
             return await res.json();
           } else if (res.status == 404) {
-            throw Error("No books were found!");
+            throw Error("No todos were found!");
           } else {
-            throw Error("Couldn't retrieve books");
+            throw Error("Couldn't retrieve todos");
           }
         })
         .catch((err) => {
