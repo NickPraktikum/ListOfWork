@@ -5,7 +5,6 @@
     using ListOfWork.Logic.Interfaces;
     using ListOfWork.Logic.Models;
 
-    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Provides unit tests for the type <see cref="TodoListLogic" />.

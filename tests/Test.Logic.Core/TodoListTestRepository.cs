@@ -80,6 +80,11 @@
 
         #region methods
 
+        /// <summary>
+        /// A factory to create a mock repository for unit testing.
+        /// </summary>
+        /// <param name="database">A mock data for unit testing that will be injected into the repository through Dependency Injection.</param>
+        /// <returns>A fresh mock repository(<see cref="TodoListTestRepository"/>) for unit testing.</returns>
         public static ITodoListRepository Create(IEnumerable<TodoItemModel> database)
         {
             var result = new TodoListTestRepository();
